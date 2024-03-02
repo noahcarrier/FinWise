@@ -43,7 +43,7 @@ export default function Navbar() {
                       alt="FinWise"
                     />
                   </Link>
-                  <Link href="/" className="px-2 text-3xl font-bold">FinWise</Link>
+                  <Link href="/" className="px-2 text-3xl font-bold text-white">FinWise</Link>
                 </div>
               </div>
               {/* Buttons */}
