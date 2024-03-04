@@ -1,0 +1,11 @@
+Model Information:
+* title:	Wodden Table
+* source:	https://sketchfab.com/3d-models/wodden-table-aa5811a8bf3c41a8a93be2d6583af29b
+* author:	AlexJr (https://sketchfab.com/AlexJr977)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Wodden Table" (https://sketchfab.com/3d-models/wodden-table-aa5811a8bf3c41a8a93be2d6583af29b) by AlexJr (https://sketchfab.com/AlexJr977) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
