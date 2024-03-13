@@ -6,7 +6,7 @@ import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline'
 import Link from 'next/link';
 
 const navigation = [
-  { name: 'Sign Up', href: '/credentials/signup', current: false },
+  { name: 'Sign Up', href: '/signup', current: false },
   { name: 'Log In', href: '/login', current: false },
 ];
 
