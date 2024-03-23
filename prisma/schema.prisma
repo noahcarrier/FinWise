@@ -13,5 +13,21 @@ model users {
   email      String
   password   String
   salt       String
+  lessons    lesson[]
   created_at DateTime @default(now()) @db.Timestamp(6)
+}
+
+model lesson {
+  lesson_id         Int      @id @default(autoincrement())
+  title      String
+  questions lessonQuestion[]
+  created_at DateTime @default(now()) @db.Timestamp(6)
+  id   users  @relation(fields: [lesson_id], references: [id])
+}
+
+model lessonQuestion {
+  question_id Int      @id @default(autoincrement())
+  lesson_id    lesson   @relation(fields: [question_id], references: [lesson_id])
+  question  String
+  answer    String
 }
