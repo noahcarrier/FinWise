@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Navbar from '../components/Navbar';
 import "../app/globals.css";
-import FishbowlBackground from "../components/FishbowlBackground";
+
 
 const Signup = () => {
     const [username, setUsername] = useState('');
@@ -22,9 +22,9 @@ const Signup = () => {
         <div className="flex flex-col bg-gradient-to-b from-cyan-500 to-blue-700 min-h-screen">
           <Navbar />
           <div className="flex justify-center items-center flex-1">
-            <div className="w-full max-w-md">
+            <div className="w-full max-w-xl">
+              <form onSubmit={handleSubmit} className="bg-gradient-to-b from-transparent to-white shadow-md rounded-full p-12 mb-2">
               <h1 className="text-center text-black font-bold text-2xl mb-9">Register</h1>
-              <form onSubmit={handleSubmit} className="bg-gray-300 shadow-md rounded px-8 pt-6 pb-8 mb-4">
                 <div className="mb-4">
                   <label htmlFor="username" className="block text-gray-700 text-sm font-bold mb-2">Username:</label>
                   <input
