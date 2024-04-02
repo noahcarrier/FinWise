@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Navbar from '../components/Navbar';
 import "../app/globals.css";
-
+import Fishbowl from '../components/Fishbowl';
 
 const Signup = () => {
     const [username, setUsername] = useState('');
@@ -21,10 +21,13 @@ const Signup = () => {
     return (
         <div className="flex flex-col bg-gradient-to-b from-cyan-500 to-blue-700 min-h-screen">
           <Navbar />
-          <div className="flex justify-center items-center flex-1">
-            <div className="w-full max-w-xl">
-              <form onSubmit={handleSubmit} className="bg-gradient-to-b from-transparent to-white shadow-md rounded-full p-12 mb-2">
-              <h1 className="text-center text-black font-bold text-2xl mb-9">Register</h1>
+          <div className="flex justify-center items-center h-screen">
+            <div className="w-1/2 flex justify-center mr-10 mb-20" style={{ height: '75vh' }}>
+              <Fishbowl />
+            </div>
+            <div className="w-1/2">
+              <form onSubmit={handleSubmit} className="mx-auto max-w-md mb-20 mr-24">
+                <h1 className="text-center text-black font-bold text-2xl mb-9">Register</h1>
                 <div className="mb-4">
                   <label htmlFor="username" className="block text-gray-700 text-sm font-bold mb-2">Username:</label>
                   <input
