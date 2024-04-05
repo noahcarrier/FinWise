@@ -140,6 +140,8 @@ export async function getUserFromCache(sessionKey: string): Promise<userProfile 
     if(!userData)
         return;
 
+    // Update Session Expiration and return user
+    redis.expire(`SESSION:${sessionKey}`, 86400);
     const [id, username, email] = userData.split(':');
     return new userProfile(parseInt(id), username, email);
 }
