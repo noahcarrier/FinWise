@@ -2,9 +2,9 @@ import { randomBytes, randomUUID, scryptSync, timingSafeEqual } from "crypto";
 import {prisma, redis} from "./db";
 
 class userProfile {
-    public id;
-    public username;
-    public email;
+    public readonly id: number;
+    public readonly username: string;
+    public readonly email: string;
 
     constructor(id: number, username: string, email: string) {
         this.id = id;
