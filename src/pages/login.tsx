@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Navbar from '../components/Navbar';
-import "../app/globals.css";
+import '../app/globals.css';
 
 const Login = () => {
     const [email, setEmail] = useState('');
@@ -12,13 +12,13 @@ const Login = () => {
         setEmail('');
         setPassword('');
     };
-    
+
     return (
         <div className="flex flex-col bg-gradient-to-b from-cyan-500 to-blue-700 min-h-screen">
             <Navbar />
             <div className="flex justify-center items-center flex-1">
                 <div className="w-full max-w-xl">
-                    <form onSubmit={handleSubmit} className="bg-gradient-to-b from-transparent to-white shadow-md rounded-full p-12 mb-2">
+                    <form onSubmit={handleSubmit} className="p-12 mb-10">
                         <h1 className="text-center text-black font-bold text-2xl mb-9">Login</h1>
                         <div className="mb-4">
                             <label htmlFor="email" className="block text-gray-700 text-sm font-bold mb-2">Email:</label>
@@ -42,10 +42,11 @@ const Login = () => {
                                 required
                             />
                         </div>
-                        <div className="flex items-center justify-center">
+                        <div className="flex flex-col items-center">
                             <button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mt-4">
                                 Login
                             </button>
+                            <a href="signup" className="text-black font-medium text-sm mt-8">New Here? Join the tank!</a>
                         </div>
                     </form>
                 </div>
