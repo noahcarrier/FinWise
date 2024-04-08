@@ -46,7 +46,7 @@ const Login = () => {
                             <button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mt-4">
                                 Login
                             </button>
-                            <a href="signup" className="text-black font-medium text-sm mt-8">New Here? Join the tank!</a>
+                            <a href="signup" className="text-yellow-300 font-medium text-sm mt-8">New Here? Join the tank!</a>
                         </div>
                     </form>
                 </div>

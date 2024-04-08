@@ -18,7 +18,7 @@ const Signup = () => {
     };
     
     return (
-        <div className="flex flex-col bg-gradient-to-b from-cyan-500 to-blue-700 min-h-screen">
+        <div className="flex flex-col bg-gradient-to-b from-white to-blue-500 min-h-screen">
           <Navbar />
           <div className="flex justify-center items-center h-screen">
             <div className="w-full max-w-md">
@@ -70,9 +70,11 @@ const Signup = () => {
                   />
                 </div>
                 <div className="flex items-center justify-center">
-                  <button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mt-4">
+                <div className="flex flex-col items-center mb-12">                <button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mt-4">
                     Register
                   </button>
+                  <a href="login" className="text-yellow-300 font-medium text-sm mt-10">Come here often? Login in!</a>
+                  </div>
                 </div>
               </form>
             </div>
