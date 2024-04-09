@@ -13,7 +13,7 @@ export default function Create() {
             <div className="flex flex-col items-center mt-6">
                 <a href="/create-flashcards" className="bg-white rounded-lg shadow-lg p-6">
                     <img src="icons/flashcards.png" className="w-full mb-" title="Flashcards Icon" />
-                    <h2 className="text-2xl text-center font-bold mb-4">Flashcards</h2>
+                    <h2 className="text-black m-4 text-3xl text-center font-bold mb-4">Flashcards</h2>
                 </a>
             </div>
         </main>
