@@ -15,6 +15,7 @@ if (process.env.NODE_ENV === 'production') {
   redis = createClient({
     url: process.env.REDIS_URL
 });
+redis.connect();
 } else {
     if (!global.prisma) {
         global.prisma = new PrismaClient();
@@ -24,6 +25,7 @@ if (process.env.NODE_ENV === 'production') {
     }
     prisma = global.prisma;
     redis = global.redis;
+    redis.connect();
 }
 
 export {

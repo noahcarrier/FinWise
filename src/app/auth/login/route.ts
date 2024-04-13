@@ -7,7 +7,10 @@ type request = {
 }
 
 export async function POST(request: Request) {
-    const req = await request.json();
+    const req: request = await request.json();
+    if(!req.username || !req.password)
+        return new Response('One or more required fields are missing', {status: 400});
+    
     const authData = await authenticate(req.username, req.password);
     if(!authData)
         return new Response('Authentication Failed, bad username/password', {status: 401});

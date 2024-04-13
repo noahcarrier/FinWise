@@ -38,7 +38,7 @@ const Signup = () => {
             body: JSON.stringify({username, email, password})
         }).then(async res => {
             if(res.status !== 200)
-              return Swal.fire('Error', 'An error occurred while creating your account', 'error').then(() => {
+              return Swal.fire('Error', 'An account with such username already existed', 'error').then(() => {
                 // @TODO: Remove the loading animation here
                 regBtnRef.current?.removeAttribute('disabled');
               });

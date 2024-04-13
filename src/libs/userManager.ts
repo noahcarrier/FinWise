@@ -78,7 +78,7 @@ export async function authenticate(username: string, password: string): Promise<
         return;
 
     // Create session (expires in 24hrs)
-    await redis.connect();
+
     await redis.set(`SESSION:${UUID}`, `${user.id}:${user.username}:${user.email}`, {EX: 86400});
     return {
         sessionKey: UUID, 
@@ -116,7 +116,6 @@ export async function register(username: string, email: string, password: string
 
     // Create session (expires in 24hrs)
     const UUID = randomUUID({disableEntropyCache: true});
-    await redis.connect();
     await redis.set(`SESSION:${UUID}`, `${newUser.id}:${newUser.username}:${newUser.email}`, {EX: 86400});
     return {
         sessionKey: UUID, 
@@ -129,7 +128,6 @@ export async function register(username: string, email: string, password: string
  * @param sessionKey Self-explanatory
  */
 export async function logout(sessionKey: string) {
-    await redis.connect();
     await redis.del(`SESSION:${sessionKey}`);
 }
 
@@ -141,8 +139,7 @@ export async function logout(sessionKey: string) {
 export async function getUserFromCache(sessionKey: string | undefined): Promise<userProfile | undefined> {
     if(!sessionKey)
         return;
-    
-    await redis.connect();
+
     const userData = await redis.get(`SESSION:${sessionKey}`);
     if(!userData)
         return;
