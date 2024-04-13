@@ -1,5 +1,7 @@
 import { randomBytes, randomUUID, scryptSync, timingSafeEqual } from "crypto";
 import {prisma, redis} from "./db";
+import { getCookie } from "cookies-next";
+import { NextPageContext } from "next";
 
 class userProfile {
     public readonly id: number;
@@ -132,10 +134,12 @@ export function logout(sessionKey: string) {
 
 /**
  * Validate if the user already has a valid session (and renew the expiration time)
- * @param sessionKey 
+ * @param sessionKey Self-emplanatory, accept undefined value to make checks easier
  * @returns returns userProfile if session is valid, otherwise undefined
  */
-export async function getUserFromCache(sessionKey: string): Promise<userProfile | undefined> {
+export async function getUserFromCache(sessionKey: string | undefined): Promise<userProfile | undefined> {
+    if(!sessionKey)
+        return;
     const userData = await redis.get(`SESSION:${sessionKey}`);
     if(!userData)
         return;

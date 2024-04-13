@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import Swal from 'sweetalert2';
 import Navbar from '../components/Navbar';
 import "../app/globals.css";
 
@@ -8,14 +9,38 @@ const Signup = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
+    const regBtnRef = React.createRef<HTMLButtonElement>();
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault(); // this prevents the page from reloading after submitting the form
-        console.log('Form Submitting:', { username, email, password, confirmPassword });
-        setUsername('');
-        setEmail('');
-        setPassword('');
-        setConfirmPassword('');
+        
+        // Check passwords match
+        if(password !== confirmPassword)
+            return Swal.fire('Form Validation', 'Passwords do not match', 'error');
+
+        // Send the form data to the server
+        
+        // @TODO: Frontend dev, plz add a little loading animation to register btn
+        regBtnRef.current?.setAttribute('disabled', 'true');
+
+        fetch('/auth/register', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({username, email, password})
+        }).then(async res => {
+            if(res.status !== 200)
+              return Swal.fire('Error', 'An error occurred while creating your account', 'error').then(() => {
+                // @TODO: Remove the loading animation here
+                regBtnRef.current?.removeAttribute('disabled');
+              });
+            Swal.fire('Success', 'Account created successfully', 'success').then(() => {
+              // Redirect user to the main page
+              window.location.replace('/');
+            });
+                
+        })
     };
     
     return (
@@ -70,7 +95,7 @@ const Signup = () => {
                   />
                 </div>
                 <div className="flex items-center justify-center">
-                  <button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mt-4">
+                  <button type="submit" ref={regBtnRef} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mt-4">
                     Register
                   </button>
                 </div>

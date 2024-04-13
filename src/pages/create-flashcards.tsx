@@ -1,6 +1,10 @@
 import React, { useState } from 'react';
+import { getCookie } from 'cookies-next';
 import Navbar from '../components/Navbar';
 import "../app/globals.css";
+import { getUserFromCache } from '../libs/userManager';
+import { NextPageContext } from 'next';
+
 
 
 export default function Create() {
@@ -83,4 +87,25 @@ function addCard() {
 
     (document.getElementById('questionInput') as HTMLInputElement).value = '';
     (document.getElementById('answerInput') as HTMLInputElement).value = '';
+}
+
+export const getServerSideProps = async (context: NextPageContext) => {
+    /* USE THIS CODE TO TEST AUTHENTICATION (yes, just copy and paste this to page that needs authentication)*/
+    const user = await getUserFromCache(getCookie('session', {
+        req: context.req,
+        res: context.res,
+    }));
+    if (!user) {
+        return {
+            redirect: {
+                destination: '/login',
+                permanent: false,
+            },
+        };
+    }
+
+    /* Return anything you want from database query from here out */
+    return {
+        props: {}
+    }
 }
