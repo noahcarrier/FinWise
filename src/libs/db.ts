@@ -22,10 +22,11 @@ redis.connect();
         global.redis = createClient({
             url: process.env.REDIS_URL
         });
+        global.redis.connect();
     }
     prisma = global.prisma;
     redis = global.redis;
-    redis.connect();
+
 }
 
 export {

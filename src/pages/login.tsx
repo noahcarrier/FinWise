@@ -6,6 +6,10 @@ import { getUserFromCache } from '@/libs/userManager';
 import { NextPageContext } from 'next';
 import { getCookie } from 'cookies-next';
 
+type props = {
+    isRFIDAuthEnabled: boolean;
+}
+
 const Login = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');

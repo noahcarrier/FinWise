@@ -74,7 +74,7 @@ export async function authenticate(username: string, password: string): Promise<
     // Hash the password and authenticate
     const saltBuffer = Buffer.from(user.salt, 'base64');
     const passwordHash = scryptSync(password, saltBuffer, 64);
-    if(!timingSafeEqual(passwordHash, saltBuffer))
+    if(!timingSafeEqual(passwordHash, Buffer.from(user.password, 'base64')))
         return;
 
     // Create session (expires in 24hrs)
