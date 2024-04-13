@@ -1,7 +1,5 @@
 import { randomBytes, randomUUID, scryptSync, timingSafeEqual } from "crypto";
 import {prisma, redis} from "./db";
-import { getCookie } from "cookies-next";
-import { NextPageContext } from "next";
 
 class userProfile {
     public readonly id: number;
@@ -33,7 +31,7 @@ class userProfile {
         // Hash the password and authenticate
         const saltBuffer = Buffer.from(user.salt, 'base64');
         const oldPasswordHash = scryptSync(oldPassword, saltBuffer, 64, {cost: 16384*2});
-        if(!timingSafeEqual(oldPasswordHash, saltBuffer))
+        if(!timingSafeEqual(oldPasswordHash, Buffer.from(user.password, 'base64')))
             return false;
 
         // Update password
@@ -75,11 +73,12 @@ export async function authenticate(username: string, password: string): Promise<
 
     // Hash the password and authenticate
     const saltBuffer = Buffer.from(user.salt, 'base64');
-    const passwordHash = scryptSync(password, saltBuffer, 64, {cost: 16384*2});
+    const passwordHash = scryptSync(password, saltBuffer, 64);
     if(!timingSafeEqual(passwordHash, saltBuffer))
         return;
 
     // Create session (expires in 24hrs)
+    await redis.connect();
     await redis.set(`SESSION:${UUID}`, `${user.id}:${user.username}:${user.email}`, {EX: 86400});
     return {
         sessionKey: UUID, 
@@ -105,7 +104,7 @@ export async function register(username: string, email: string, password: string
 
     // Create user
     const saltBuffer = randomBytes(16);
-    const passwordHash = scryptSync(password, saltBuffer, 64, {cost: 16384*2});
+    const passwordHash = scryptSync(password, saltBuffer, 64);
     const newUser = await prisma.users.create({
         data: {
             username: username,
@@ -117,6 +116,7 @@ export async function register(username: string, email: string, password: string
 
     // Create session (expires in 24hrs)
     const UUID = randomUUID({disableEntropyCache: true});
+    await redis.connect();
     await redis.set(`SESSION:${UUID}`, `${newUser.id}:${newUser.username}:${newUser.email}`, {EX: 86400});
     return {
         sessionKey: UUID, 
@@ -128,8 +128,9 @@ export async function register(username: string, email: string, password: string
  * Destroys a user session from the cache
  * @param sessionKey Self-explanatory
  */
-export function logout(sessionKey: string) {
-    redis.del(`SESSION:${sessionKey}`);
+export async function logout(sessionKey: string) {
+    await redis.connect();
+    await redis.del(`SESSION:${sessionKey}`);
 }
 
 /**
@@ -140,12 +141,14 @@ export function logout(sessionKey: string) {
 export async function getUserFromCache(sessionKey: string | undefined): Promise<userProfile | undefined> {
     if(!sessionKey)
         return;
+    
+    await redis.connect();
     const userData = await redis.get(`SESSION:${sessionKey}`);
     if(!userData)
         return;
 
     // Update Session Expiration and return user
-    redis.expire(`SESSION:${sessionKey}`, 86400);
+    await redis.expire(`SESSION:${sessionKey}`, 86400);
     const [id, username, email] = userData.split(':');
     return new userProfile(parseInt(id), username, email);
 }

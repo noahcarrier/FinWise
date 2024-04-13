@@ -2,6 +2,9 @@ import React, { useState } from 'react';
 import Swal from 'sweetalert2';
 import Navbar from '../components/Navbar';
 import "../app/globals.css";
+import { NextPageContext } from 'next';
+import { getUserFromCache } from '@/libs/userManager';
+import { getCookie } from 'cookies-next';
 
 
 const Signup = () => {
@@ -17,6 +20,10 @@ const Signup = () => {
         // Check passwords match
         if(password !== confirmPassword)
             return Swal.fire('Form Validation', 'Passwords do not match', 'error');
+
+        // Validate password security (Just 8 character and some number for now)
+        if(password.length < 8 || !/\d/.test(password))
+            return Swal.fire('Form Validation', 'Password must be at least 8 characters long and contain at least one number', 'error');
 
         // Send the form data to the server
         
@@ -107,3 +114,22 @@ const Signup = () => {
 };
 
 export default Signup;
+
+export const getServerSideProps = async (context: NextPageContext) => {
+  const user = await getUserFromCache(getCookie('session', {
+      req: context.req,
+      res: context.res,
+  }));
+  if (user) {
+      return {
+          redirect: {
+              destination: '/',
+              permanent: false,
+          },
+      };
+  }
+
+  return {
+      props: {}
+  }
+}
