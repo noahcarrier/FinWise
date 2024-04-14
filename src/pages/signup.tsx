@@ -43,7 +43,7 @@ const Signup = () => {
               });
             Swal.fire('Success', await res.text(), 'success').then(() => {
               // Redirect user to the main page
-              window.location.replace('/');
+              window.location.replace('/dashboard');
             });
                 
         })
@@ -51,7 +51,7 @@ const Signup = () => {
     
     return (
         <div className="flex flex-col bg-gradient-to-b from-cyan-500 to-blue-700 min-h-screen">
-          <Navbar />
+          <Navbar isAuthed={false}/>
           <div className="flex justify-center items-center flex-1">
             <div className="w-full max-w-xl">
               <form onSubmit={handleSubmit} className="bg-gradient-to-b from-transparent to-white shadow-md rounded-full p-12 mb-2">
@@ -119,7 +119,7 @@ export const getServerSideProps = async (context: NextPageContext) => {
   if (user) {
       return {
           redirect: {
-              destination: '/',
+              destination: '/dashboard',
               permanent: false,
           },
       };

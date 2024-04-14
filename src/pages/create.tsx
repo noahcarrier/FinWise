@@ -8,7 +8,7 @@ import { NextPageContext } from 'next';
 export default function Create() {
     return (
         <main className="bg-gradient-to-b from-cyan-500 to-blue-700 min-h-screen">
-            <Navbar />
+            <Navbar isAuthed={true}/>
             <div className="flex flex-col items-center mt-6 ">
                 <h1 className="text-yellow-200 text-5xl font-bold">Create Your Lesson</h1>
             </div>

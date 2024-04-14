@@ -9,7 +9,7 @@ import { NextPageContext } from 'next';
 export default function Create() {
     return (
         <main className="bg-gradient-to-b from-cyan-500 to-blue-700 min-h-screen">
-            <Navbar />
+            <Navbar isAuthed={true}/>
             <div className='mt-8'>
                 <a href="/create" className="ml-32 text-yellow-200 text-lg font-bold bg-blue-700 hover:bg-blue-600 text-white px-4 py-2 rounded-md"> ← Go Back</a>
             </div>

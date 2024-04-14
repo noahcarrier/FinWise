@@ -1,6 +1,6 @@
 import { randomBytes, randomUUID, scryptSync, timingSafeEqual } from "crypto";
 import {prisma, redis, redisPrefix} from "./db";
-import { getCookie, setCookie } from "cookies-next";
+import { getCookie, setCookie, deleteCookie } from "cookies-next";
 import { IncomingMessage, ServerResponse } from "http";
 import { NextPageContext } from "next";
 
@@ -162,7 +162,7 @@ export async function getUserFromCache(sessionKey?: string): Promise<userProfile
 }
 
 /**
- * Automatically handles cookie fetching from request data, should be used instead of getUserFromCache..
+ * Automatically handles cookie fetching from request data from pages/, should be used instead of getUserFromCache..
  * @param conn Nextjs connection object
  * @returns userProfile if session is valid, otherwise undefined
  */
@@ -177,8 +177,9 @@ export async function getCacheFromPage(conn: connT | NextPageContext): Promise<u
 
     const data = await getUserFromCache(sessionKey);
     if(!data)
-        return;
+        return deleteCookie('session', conn) as undefined;
 
     setCookie('session', sessionKey, { ...conn, maxAge: 86400});
     return data;
 }
+
