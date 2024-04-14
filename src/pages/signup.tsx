@@ -37,11 +37,11 @@ const Signup = () => {
             body: JSON.stringify({username, email, password})
         }).then(async res => {
             if(res.status !== 200)
-              return Swal.fire('Error', 'An account with such username already existed', 'error').then(() => {
+              return Swal.fire('Error', await res.text(), 'error').then(() => {
                 // @TODO: Remove the loading animation here
                 regBtnRef.current?.removeAttribute('disabled');
               });
-            Swal.fire('Success', 'Account created successfully', 'success').then(() => {
+            Swal.fire('Success', await res.text(), 'success').then(() => {
               // Redirect user to the main page
               window.location.replace('/');
             });

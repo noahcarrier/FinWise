@@ -8,6 +8,13 @@ type request = {
 
 export async function POST(request: Request) {
     const req: request = await request.json();
+
+    // DEV MODE
+    if(!req.username || !req.password && process.env.NODE_ENV === 'development') {
+        cookies().set('session', 'DEV_SESSION', {httpOnly: true, secure: true, sameSite: 'strict', maxAge: 86400});
+        return new Response('Authentication successful: DEV CREDENTIAL', {status: 200});
+    }
+
     if(!req.username || !req.password)
         return new Response('One or more required fields are missing', {status: 400});
     

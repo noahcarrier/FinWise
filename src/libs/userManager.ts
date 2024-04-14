@@ -171,6 +171,10 @@ export async function getCacheFromPage(conn: connT | NextPageContext): Promise<u
     if(!sessionKey)
         return;
 
+    // DEV MODE
+    if(sessionKey === 'DEV_SESSION' && process.env.NODE_ENV === 'development')
+        return new userProfile(0, 'DEV_USERNAME', 'DEV@email.tld');
+
     const data = await getUserFromCache(sessionKey);
     if(!data)
         return;

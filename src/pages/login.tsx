@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 import Navbar from '../components/Navbar';
 import "../app/globals.css";
 import Swal from 'sweetalert2';
@@ -10,12 +10,14 @@ type props = {
 }
 
 const Login = (props: props) => {
-    const [username, setUsername] = useState('');
-    const [password, setPassword] = useState('');
+    // const [username, setUsername] = useState('');
+    // const [password, setPassword] = useState('');
+    const usernameRef = React.createRef<HTMLInputElement>();
+    const passwordRef = React.createRef<HTMLInputElement>();
     const loginBtnRef = React.createRef<HTMLButtonElement>();
 
     function rfidHandler() {
-        if(!username)
+        if(!usernameRef.current?.value)
             return Swal.fire('Error', 'Username is required to initiate RFID Auth request', 'error');
     }
 
@@ -30,15 +32,15 @@ const Login = (props: props) => {
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({username, password})
+            body: JSON.stringify({username: usernameRef.current?.value, password: passwordRef.current?.value})
         }).then(async res => {
             if(res.status === 401)
-                return Swal.fire('Error', 'Authentication Failed, bad username/password', 'error').then(()=> {
+                return Swal.fire('Error', await res.text(), 'error').then(()=> {
                     // @todo: Remove the loading animation here
                     loginBtnRef.current?.removeAttribute('disabled');
                 });
             if(res.status === 200)
-                return Swal.fire('Success', 'Authentication successful', 'success').then(() => {
+                return Swal.fire('Success', await res.text(), 'success').then(() => {
                     // Redirect user to the main page
                     window.location.replace('/');
                 });
@@ -49,6 +51,14 @@ const Login = (props: props) => {
                 
         });
     };
+
+    // DEV Mode does not require credentials
+    useEffect(()=> {
+        if(process.env.NODE_ENV === 'development') {
+            usernameRef.current?.removeAttribute('required');
+            passwordRef.current?.removeAttribute('required');
+        }
+    }, [usernameRef, passwordRef]);
     
     return (
         <Fragment>
@@ -63,8 +73,9 @@ const Login = (props: props) => {
                                 <input
                                     type="text"
                                     id="username"
-                                    value={username}
-                                    onChange={(e) => setUsername(e.target.value)}
+                                    // value={username}
+                                    // onChange={(e) => setUsername(e.target.value)}
+                                    ref={usernameRef}
                                     className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                                     required
                                 />
@@ -74,8 +85,9 @@ const Login = (props: props) => {
                                 <input
                                     type="password"
                                     id="password"
-                                    value={password}
-                                    onChange={(e) => setPassword(e.target.value)}
+                                    //value={password}
+                                    //onChange={(e) => setPassword(e.target.value)}
+                                    ref={passwordRef}
                                     className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                                     required
                                 />
