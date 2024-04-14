@@ -10,8 +10,6 @@ type props = {
 }
 
 const Login = (props: props) => {
-    // const [username, setUsername] = useState('');
-    // const [password, setPassword] = useState('');
     const usernameRef = React.createRef<HTMLInputElement>();
     const passwordRef = React.createRef<HTMLInputElement>();
     const loginBtnRef = React.createRef<HTMLButtonElement>();
@@ -73,8 +71,6 @@ const Login = (props: props) => {
                                 <input
                                     type="text"
                                     id="username"
-                                    // value={username}
-                                    // onChange={(e) => setUsername(e.target.value)}
                                     ref={usernameRef}
                                     className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                                     required
@@ -85,8 +81,6 @@ const Login = (props: props) => {
                                 <input
                                     type="password"
                                     id="password"
-                                    //value={password}
-                                    //onChange={(e) => setPassword(e.target.value)}
                                     ref={passwordRef}
                                     className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                                     required
