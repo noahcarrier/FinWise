@@ -3,8 +3,7 @@ import Swal from 'sweetalert2';
 import Navbar from '../components/Navbar';
 import "../app/globals.css";
 import { NextPageContext } from 'next';
-import { getUserFromCache } from '@/libs/userManager';
-import { getCookie } from 'cookies-next';
+import { getCacheFromPage } from '@/libs/userManager';
 
 
 const Signup = () => {
@@ -116,10 +115,7 @@ const Signup = () => {
 export default Signup;
 
 export const getServerSideProps = async (context: NextPageContext) => {
-  const user = await getUserFromCache(getCookie('session', {
-      req: context.req,
-      res: context.res,
-  }));
+  const user = await getCacheFromPage(context);
   if (user) {
       return {
           redirect: {

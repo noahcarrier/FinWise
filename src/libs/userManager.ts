@@ -1,5 +1,8 @@
 import { randomBytes, randomUUID, scryptSync, timingSafeEqual } from "crypto";
-import {prisma, redis} from "./db";
+import {prisma, redis, redisPrefix} from "./db";
+import { getCookie, setCookie } from "cookies-next";
+import { IncomingMessage, ServerResponse } from "http";
+import { NextPageContext } from "next";
 
 class userProfile {
     public readonly id: number;
@@ -79,7 +82,7 @@ export async function authenticate(username: string, password: string): Promise<
 
     // Create session (expires in 24hrs)
 
-    await redis.set(`SESSION:${UUID}`, `${user.id}:${user.username}:${user.email}`, {EX: 86400});
+    await redis.set(`${redisPrefix}SESSION:${UUID}`, `${user.id}:${user.username}:${user.email}`, {EX: 86400});
     return {
         sessionKey: UUID, 
         user: new userProfile(user.id, user.username, user.email)
@@ -116,7 +119,7 @@ export async function register(username: string, email: string, password: string
 
     // Create session (expires in 24hrs)
     const UUID = randomUUID({disableEntropyCache: true});
-    await redis.set(`SESSION:${UUID}`, `${newUser.id}:${newUser.username}:${newUser.email}`, {EX: 86400});
+    await redis.set(`${redisPrefix}SESSION:${UUID}`, `${newUser.id}:${newUser.username}:${newUser.email}`, {EX: 86400});
     return {
         sessionKey: UUID, 
         user: new userProfile(newUser.id, newUser.username, newUser.email)
@@ -128,24 +131,50 @@ export async function register(username: string, email: string, password: string
  * @param sessionKey Self-explanatory
  */
 export async function logout(sessionKey: string) {
-    await redis.del(`SESSION:${sessionKey}`);
+    await redis.del(`${redisPrefix}SESSION:${sessionKey}`);
 }
+
+
+interface connT {
+    req: IncomingMessage;
+    res?: ServerResponse<IncomingMessage>;
+};
 
 /**
  * Validate if the user already has a valid session (and renew the expiration time)
  * @param sessionKey Self-emplanatory, accept undefined value to make checks easier
  * @returns returns userProfile if session is valid, otherwise undefined
  */
-export async function getUserFromCache(sessionKey: string | undefined): Promise<userProfile | undefined> {
+export async function getUserFromCache(sessionKey?: string): Promise<userProfile | undefined> {
     if(!sessionKey)
         return;
 
-    const userData = await redis.get(`SESSION:${sessionKey}`);
+    const userData = await redis.get(`${redisPrefix}SESSION:${sessionKey}`);
     if(!userData)
         return;
 
     // Update Session Expiration and return user
-    await redis.expire(`SESSION:${sessionKey}`, 86400);
+    await redis.expire(`${redisPrefix}SESSION:${sessionKey}`, 86400);
+
+    // Parse and return the object
     const [id, username, email] = userData.split(':');
     return new userProfile(parseInt(id), username, email);
+}
+
+/**
+ * Automatically handles cookie fetching from request data, should be used instead of getUserFromCache..
+ * @param conn Nextjs connection object
+ * @returns userProfile if session is valid, otherwise undefined
+ */
+export async function getCacheFromPage(conn: connT | NextPageContext): Promise<userProfile | undefined> {
+    const sessionKey = getCookie('session', conn);
+    if(!sessionKey)
+        return;
+
+    const data = await getUserFromCache(sessionKey);
+    if(!data)
+        return;
+
+    setCookie('session', sessionKey, { ...conn, maxAge: 86400});
+    return data;
 }

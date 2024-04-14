@@ -17,6 +17,6 @@ export async function POST(request: Request) {
     if(!authData)
         return new Response('An account with such username already existed', {status: 400});
 
-    cookies().set('session', authData.sessionKey, {httpOnly: true, secure: true, sameSite: 'strict'})
+    cookies().set('session', authData.sessionKey, {httpOnly: true, secure: true, sameSite: 'strict', maxAge: 86400})
     return new Response('Account created successfully', {status: 200});
 }

@@ -2,9 +2,8 @@ import React, { Fragment, useState } from 'react';
 import Navbar from '../components/Navbar';
 import "../app/globals.css";
 import Swal from 'sweetalert2';
-import { getUserFromCache } from '@/libs/userManager';
+import { getCacheFromPage } from '@/libs/userManager';
 import { NextPageContext } from 'next';
-import { getCookie } from 'cookies-next';
 
 type props = {
     isRFIDAuthEnabled: boolean;
@@ -103,10 +102,7 @@ export default Login;
 
 
 export const getServerSideProps = async (context: NextPageContext) => {
-    const user = await getUserFromCache(getCookie('session', {
-        req: context.req,
-        res: context.res,
-    }));
+    const user = await getCacheFromPage(context);
     if (user) {
         return {
             redirect: {

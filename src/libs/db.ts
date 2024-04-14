@@ -10,6 +10,8 @@ declare global {
     var redis: RedisClientType;
 }
 
+const redisPrefix = "finwise:";
+
 if (process.env.NODE_ENV === 'production') {
   prisma = new PrismaClient();
   redis = createClient({
@@ -31,5 +33,6 @@ redis.connect();
 
 export {
     prisma,
-    redis
+    redis,
+    redisPrefix
 };

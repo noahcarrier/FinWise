@@ -1,8 +1,7 @@
-import React, { useState } from 'react';
-import { getCookie } from 'cookies-next';
+import React from 'react';
 import Navbar from '../components/Navbar';
 import "../app/globals.css";
-import { getUserFromCache } from '../libs/userManager';
+import { getCacheFromPage } from '../libs/userManager';
 import { NextPageContext } from 'next';
 
 
@@ -91,10 +90,7 @@ function addCard() {
 
 export const getServerSideProps = async (context: NextPageContext) => {
     /* USE THIS CODE TO TEST AUTHENTICATION (yes, just copy and paste this to page that needs authentication)*/
-    const user = await getUserFromCache(getCookie('session', {
-        req: context.req,
-        res: context.res,
-    }));
+    const user = await getCacheFromPage(context);
     if (!user) {
         return {
             redirect: {

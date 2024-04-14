@@ -1,6 +1,8 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Navbar from '../components/Navbar';
 import "../app/globals.css";
+import { getCacheFromPage } from '@/libs/userManager';
+import { NextPageContext } from 'next';
 
 
 export default function Create() {
@@ -18,4 +20,23 @@ export default function Create() {
             </div>
         </main>
     );
+}
+
+
+export const getServerSideProps = async (context: NextPageContext) => {
+    /* USE THIS CODE TO TEST AUTHENTICATION (yes, just copy and paste this to page that needs authentication)*/
+    const user = await getCacheFromPage(context);
+    if (!user) {
+        return {
+            redirect: {
+                destination: '/login',
+                permanent: false,
+            },
+        };
+    }
+
+    /* Return anything you want from database query from here out */
+    return {
+        props: {}
+    }
 }

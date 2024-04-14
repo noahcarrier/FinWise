@@ -14,6 +14,7 @@ export async function POST(request: Request) {
     const authData = await authenticate(req.username, req.password);
     if(!authData)
         return new Response('Authentication Failed, bad username/password', {status: 401});
-    cookies().set('session', authData.sessionKey, {httpOnly: true, secure: true, sameSite: 'strict'});
+    // Cookie live for 1hr
+    cookies().set('session', authData.sessionKey, {httpOnly: true, secure: true, sameSite: 'strict', maxAge: 86400});
     return new Response('Authentication successful', {status: 200});
 }
