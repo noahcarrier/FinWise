@@ -1,4 +1,4 @@
-import { Component, ForwardedRef, RefObject, forwardRef } from "react";
+import { Component } from "react";
 import style from "./PasswordReset.module.css";
 import React from "react";
 
