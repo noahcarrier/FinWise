@@ -46,7 +46,7 @@ export async function POST(request: Request) {
         to: userObj.email,
         from: 'noreply@zhiyan114.com',
         subject: "FinWise - Password Reset",
-        text: `A password reset request was made for your account, click on the following link to reset your password: ${process.env.FRONTEND_URL}/pwdreset/${requestKey} \n\n If you did not make this request, please ignore this email. The link will expire in 15 minutes.`
+        text: `A password reset request was made for your account, click on the following link to reset your password:\n${process.env.FRONTEND_URL}/pwdreset/${requestKey} \n\n If you did not make this request, please ignore this email. The link will expire in 15 minutes.`
     });
 
     return new Response('If the account is found, a password reset email will be sent', {status: 200});
