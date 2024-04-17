@@ -14,7 +14,7 @@ type PATCHReq = {
 // Create a new password request request
 export async function POST(request: Request) {
     // Sanitation check
-    if(!process.env.SENDGRID_API_KEY)
+    if(!process.env.SENDGRID_KEY)
         return new Response('Email service misconfigured, password reset is not currently supported', {status: 500});
 
     // Fetch username and check its userID
@@ -36,12 +36,12 @@ export async function POST(request: Request) {
         await redis.del(`${redisPrefix}PWDRESET:KEY:${existingRequest}`);
 
     // setup the request that expires in 15 minutes
-    const requestKey = randomBytes(8).toString('hex');
+    const requestKey = randomBytes(32).toString('hex');
     await redis.set(`${redisPrefix}PWDRESET:USER:${userObj.id}`, requestKey, {EX: 900});
     await redis.set(`${redisPrefix}PWDRESET:KEY:${requestKey}`, userObj.id.toString(), {EX: 900});
 
     // Send the email
-    sendgrid.setApiKey(process.env.SENDGRID_API_KEY);
+    sendgrid.setApiKey(process.env.SENDGRID_KEY);
     await sendgrid.send({
         to: userObj.email,
         from: 'noreply@zhiyan114.com',
@@ -82,5 +82,5 @@ export async function PATCH(request: Request) {
         }
     });
 
-    return new Response('Password reset successful', {status: 200});
+    return new Response('Password reset successful! You may now login again.', {status: 200});
 }
