@@ -1,18 +1,18 @@
-import React, { Fragment, useEffect, useState } from 'react';
+import React, { Fragment, useEffect } from 'react';
 import Navbar from '../components/Navbar';
 import "../app/globals.css";
 import Swal from 'sweetalert2';
 import { getCacheFromPage } from '@/libs/userManager';
 import { NextPageContext } from 'next';
+import PasswordResetForm from '@/components/PasswordReset';
+import pwdrstStyle from '@/components/PasswordReset.module.css';
 
-type props = {
-    isRFIDAuthEnabled: boolean;
-}
-
-const Login = (props: props) => {
+const Login = () => {
     const usernameRef = React.createRef<HTMLInputElement>();
     const passwordRef = React.createRef<HTMLInputElement>();
     const loginBtnRef = React.createRef<HTMLButtonElement>();
+    const pwdRstModalRef = React.createRef<HTMLDivElement>();
+    const [modalOpen, setModalOpen] = React.useState(false);
 
     function rfidHandler() {
         if(!usernameRef.current?.value)
@@ -85,12 +85,13 @@ const Login = (props: props) => {
                                     className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                                     required
                                 />
+                                <a href="#" onClick={()=>{setModalOpen(true)}} className="text-blue-500 hover:text-blue-700 text-sm font-bold mt-2">Forgot Password?</a>
                             </div>
                             <div className="flex items-center justify-center">
                                 <button type="submit" ref={loginBtnRef} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mt-4">
                                     Login
                                 </button>
-                                {props.isRFIDAuthEnabled && (
+                                {process.env["NEXT_PUBLIC_NFCAUTH_WS"] && (
                                     <a onClick={rfidHandler} className="aBtn bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mt-4 ml-4">
                                         RFID Login
                                     </a>
@@ -100,6 +101,7 @@ const Login = (props: props) => {
                     </div>
                 </div>
             </div>
+            <PasswordResetForm display={[modalOpen, setModalOpen]}/>
         </Fragment>
     );
 };
@@ -120,7 +122,7 @@ export const getServerSideProps = async (context: NextPageContext) => {
 
     return {
         props: {
-            isRFIDAuthEnabled: process.env.NFCAUTH_WS !== undefined,
+            
         }
     }
 }

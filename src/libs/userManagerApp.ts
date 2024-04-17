@@ -22,15 +22,12 @@ export async function getCacheFromApp() {
 /**
  * Workaround for nextjs's stupid server rendering limitation
  */
-export async function isUserAuth(redirectUser?: boolean) {
-    const cookieVal = cookies().get('cookies');
+export async function isUserAuth() {
+    const cookieVal = cookies().get('session');
     const userData = getUserFromCache(cookieVal?.value);
     if(!userData || !cookieVal)
-        if(redirectUser)
-            redirect('/login');
-        else
-            return false;
+        return false;
 
     cookies().set('session', cookieVal.value, {maxAge: 86400});
-    return  true;
+    return true;
 }
