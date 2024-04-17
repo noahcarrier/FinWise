@@ -34,8 +34,9 @@ export function resetPassword(username: string, resetCode: string) {
     const resetLink = `${process.env.FRONTEND_URL}/pwdreset/${resetCode}`;
     return render(<table>
         <tr>
-            <td>
+            <td style={{textAlign: "center", margin: "auto"}}>
                 {generateHeader()}
+                <br/><br/>
             </td>
         </tr>
         <tr>
