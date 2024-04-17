@@ -48,17 +48,40 @@ const pwdResetStyle: {[key: string]: CSSProperties} = {
 }
 
 
+// export function resetPassword(username: string, resetCode: string) {
+//     const resetLink = `${process.env.FRONTEND_URL}/pwdreset/${resetCode}`;
+//     return render(<div style={pwdResetStyle.mainDiv}>
+//         {generateHeader()}
+//         <div style={pwdResetStyle.contentDiv}>
+//             <h2>Password Reset Request</h2>
+//             <h3>Hello, {username}!</h3>
+//             <p>A password reset request was made for your account, click on the following link to reset your password: <a href={resetLink}>{resetLink}</a></p>
+//             <br/>
+//             <p>If you did not make this request, please ignore this email. The link will expire in 15 minutes.</p>
+//         </div>
+//         <div style={pwdResetStyle.background}/>
+//       </div>)
+// }
+
+
 export function resetPassword(username: string, resetCode: string) {
     const resetLink = `${process.env.FRONTEND_URL}/pwdreset/${resetCode}`;
-    return render(<div style={pwdResetStyle.mainDiv}>
-        {generateHeader()}
-        <div style={pwdResetStyle.contentDiv}>
-            <h2>Password Reset Request</h2>
-            <h3>Hello, {username}!</h3>
-            <p>A password reset request was made for your account, click on the following link to reset your password: <a href={resetLink}>{resetLink}</a></p>
-            <br/>
-            <p>If you did not make this request, please ignore this email. The link will expire in 15 minutes.</p>
-        </div>
-        <div style={pwdResetStyle.background}/>
-      </div>)
+    return render(<table>
+        <tr>
+            <td>
+                {generateHeader()}
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div style={pwdResetStyle.contentDiv}>
+                    <h2>Password Reset Request</h2>
+                    <h3>Hello, {username}!</h3>
+                    <p>A password reset request was made for your account, click on the following link to reset your password: <a href={resetLink}>{resetLink}</a></p>
+                    <br/>
+                    <p>If you did not make this request, please ignore this email. The link will expire in 15 minutes.</p>
+                </div>
+            </td>
+        </tr>
+    </table>)
 }
