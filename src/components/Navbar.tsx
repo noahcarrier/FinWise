@@ -61,7 +61,7 @@ export default class Navbar extends Component<props> {
                     <Link href="/">
                       <img
                         className="h-14 w-auto items-center"
-                        src="icons/Fin.svg"
+                        src="/icons/Fin.svg"
                         alt="FinWise"
                       />
                     </Link>
