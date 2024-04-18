@@ -1,30 +1,61 @@
 import React, { useState } from 'react';
+import Swal from 'sweetalert2';
 import Navbar from '../components/Navbar';
 import "../app/globals.css";
+import { NextPageContext } from 'next';
+import { getCacheFromPage } from '@/libs/userManager';
+
 
 const Signup = () => {
     const [username, setUsername] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
+    const regBtnRef = React.createRef<HTMLButtonElement>();
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault(); // this prevents the page from reloading after submitting the form
-        console.log('Form Submitting:', { username, email, password, confirmPassword });
-        setUsername('');
-        setEmail('');
-        setPassword('');
-        setConfirmPassword('');
+        
+        // Check passwords match
+        if(password !== confirmPassword)
+            return Swal.fire('Form Validation', 'Passwords do not match', 'error');
+
+        // Validate password security (Just 8 character and some number for now)
+        if(password.length < 8 || !/\d/.test(password))
+            return Swal.fire('Form Validation', 'Password must be at least 8 characters long and contain at least one number', 'error');
+
+        // Send the form data to the server
+        
+        // @TODO: Frontend dev, plz add a little loading animation to register btn
+        regBtnRef.current?.setAttribute('disabled', 'true');
+
+        fetch('/auth/register', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({username, email, password})
+        }).then(async res => {
+            if(res.status !== 200)
+              return Swal.fire('Error', await res.text(), 'error').then(() => {
+                // @TODO: Remove the loading animation here
+                regBtnRef.current?.removeAttribute('disabled');
+              });
+            Swal.fire('Success', await res.text(), 'success').then(() => {
+              // Redirect user to the main page
+              window.location.replace('/dashboard');
+            });
+                
+        })
     };
     
     return (
-        <div className="flex flex-col bg-gradient-to-b from-white to-blue-500 min-h-screen">
-          <Navbar />
-          <div className="flex justify-center items-center h-screen">
-            <div className="w-full max-w-md">
-              
-              <form onSubmit={handleSubmit} className="mx-auto px-8 pt-6 pb-8 mb-10">
-                <h1 className="text-center text-black font-bold text-2xl mb-6">Register</h1>
+        <div className="flex flex-col bg-gradient-to-b from-cyan-500 to-blue-700 min-h-screen">
+          <Navbar isAuthed={false}/>
+          <div className="flex justify-center items-center flex-1">
+            <div className="w-full max-w-xl">
+              <form onSubmit={handleSubmit} className="bg-gradient-to-b from-transparent to-white shadow-md rounded-full p-12 mb-2">
+              <h1 className="text-center text-black font-bold text-2xl mb-9">Register</h1>
                 <div className="mb-4">
                   <label htmlFor="username" className="block text-gray-700 text-sm font-bold mb-2">Username:</label>
                   <input
@@ -70,11 +101,9 @@ const Signup = () => {
                   />
                 </div>
                 <div className="flex items-center justify-center">
-                <div className="flex flex-col items-center mb-12">                <button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mt-4">
+                  <button type="submit" ref={regBtnRef} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mt-4">
                     Register
                   </button>
-                  <a href="login" className="text-yellow-300 font-medium text-sm mt-10">Come here often? Login in!</a>
-                  </div>
                 </div>
               </form>
             </div>
@@ -84,3 +113,19 @@ const Signup = () => {
 };
 
 export default Signup;
+
+export const getServerSideProps = async (context: NextPageContext) => {
+  const user = await getCacheFromPage(context);
+  if (user) {
+      return {
+          redirect: {
+              destination: '/dashboard',
+              permanent: false,
+          },
+      };
+  }
+
+  return {
+      props: {}
+  }
+}
