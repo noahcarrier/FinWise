@@ -37,7 +37,7 @@ export async function POST(request: Request) {
         await redis.del(`${redisPrefix}PWDRESET:KEY:${existingRequest}`);
 
     // setup the request that expires in 15 minutes
-    const requestKey = randomBytes(32).toString('hex');
+    const requestKey = randomBytes(32).toString('base64');
     await redis.set(`${redisPrefix}PWDRESET:USER:${userObj.id}`, requestKey, {EX: 900});
     await redis.set(`${redisPrefix}PWDRESET:KEY:${requestKey}`, userObj.id.toString(), {EX: 900});
 
