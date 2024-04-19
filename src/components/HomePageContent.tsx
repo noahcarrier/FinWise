@@ -7,7 +7,7 @@ export default function HomePageContent() {
       {/* welcome message */}
       <div className="place-content-center" id="welcome-message">
         <div>
-          <p className="text-4xl font-bold h-48 flex items-center justify-center">
+          <p className="text-4xl font-bold h-36 flex items-center justify-center">
             Choose Your Learning Style...
           </p>
         </div>
@@ -18,10 +18,8 @@ export default function HomePageContent() {
           <div>
             <ul className="flex justify-evenly items-center space-x-8">
               <li className="text-lg md:text-xl lg:text-2xl xl:text-3xl">Pomodoro</li>
-              <li className="text-lg md:text-xl lg:text-2xl xl:text-3xl">Feynman</li>
               <li className="text-lg md:text-xl lg:text-2xl xl:text-3xl">Visual</li>
               <li className="text-lg md:text-xl lg:text-2xl xl:text-3xl">Leitner</li>
-              <li className="text-lg md:text-xl lg:text-2xl xl:text-3xl">Auditory</li>
             </ul>
           </div>
         </div>
