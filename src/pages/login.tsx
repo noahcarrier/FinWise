@@ -5,14 +5,15 @@ import Swal from 'sweetalert2';
 import { getCacheFromPage } from '@/libs/userManager';
 import { NextPageContext } from 'next';
 import PasswordResetForm from '@/components/PasswordReset';
-import pwdrstStyle from '@/components/PasswordReset.module.css';
+import RFIDAuth from '@/components/RFIDAuth';
 
 const Login = () => {
     const usernameRef = React.createRef<HTMLInputElement>();
     const passwordRef = React.createRef<HTMLInputElement>();
     const loginBtnRef = React.createRef<HTMLButtonElement>();
-    const pwdRstModalRef = React.createRef<HTMLDivElement>();
     const [modalOpen, setModalOpen] = React.useState(false);
+    const [rfidModalOpen, setRfidModalOpen] = React.useState(false);
+    const [usernameState, setUsername] = React.useState('');
 
     function rfidHandler() {
         if(!usernameRef.current?.value)
@@ -72,6 +73,7 @@ const Login = () => {
                                     type="text"
                                     id="username"
                                     ref={usernameRef}
+                                    onChange={(e)=>{setUsername(e.target.value)}}
                                     className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                                     required
                                 />
@@ -92,7 +94,7 @@ const Login = () => {
                                     Login
                                 </button>
                                 {process.env["NEXT_PUBLIC_NFCAUTH_WS"] && (
-                                    <a onClick={rfidHandler} className="aBtn bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mt-4 ml-4">
+                                    <a onClick={()=>setRfidModalOpen(true)} className="aBtn bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mt-4 ml-4">
                                         RFID Login
                                     </a>
                                 )}
@@ -102,6 +104,7 @@ const Login = () => {
                 </div>
             </div>
             <PasswordResetForm display={[modalOpen, setModalOpen]}/>
+            <RFIDAuth username={usernameState} display={[rfidModalOpen, setRfidModalOpen]}/>
         </Fragment>
     );
 };
