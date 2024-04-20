@@ -54,8 +54,8 @@ const Signup = () => {
           <Navbar isAuthed={false}/>
           <div className="flex justify-center items-center flex-1">
             <div className="w-full max-w-xl">
-              <form onSubmit={handleSubmit} className="bg-gradient-to-b from-transparent to-white shadow-md rounded-full p-12 mb-2">
-              <h1 className="text-center text-black font-bold text-2xl mb-9">Register</h1>
+              <form onSubmit={handleSubmit} className="p-8">
+              <h1 className="text-center text-black font-bold text-2xl mb-6">Register</h1>
                 <div className="mb-4">
                   <label htmlFor="username" className="block text-gray-700 text-sm font-bold mb-2">Username:</label>
                   <input
@@ -100,10 +100,11 @@ const Signup = () => {
                     required
                   />
                 </div>
-                <div className="flex items-center justify-center">
-                  <button type="submit" ref={regBtnRef} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mt-4">
+                <div className="flex items-center justify-center flex-col">
+                  <button type="submit" ref={regBtnRef} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mt-2">
                     Register
                   </button>
+                  <a className="mt-4 text-gray-900 font-semibold hover:text-blackmt-4 text-gray-900 font-semibold hover:text-black" href="/login">Come here often? Log In!</a>
                 </div>
               </form>
             </div>

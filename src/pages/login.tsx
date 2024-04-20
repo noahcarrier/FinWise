@@ -64,7 +64,7 @@ const Login = () => {
                 <Navbar isAuthed={false}/>
                 <div className="flex justify-center items-center flex-1">
                     <div className="w-full max-w-xl">
-                        <form onSubmit={handleSubmit} className="bg-gradient-to-b from-transparent to-white shadow-md rounded-full p-12 mb-2">
+                        <form onSubmit={handleSubmit} className="p-12 mb-2">
                             <h1 className="text-center text-black font-bold text-2xl mb-9">Login</h1>
                             <div className="mb-4">
                                 <label htmlFor="username" className="block text-gray-700 text-sm font-bold mb-2">Username:</label>
@@ -85,10 +85,10 @@ const Login = () => {
                                     className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                                     required
                                 />
-                                <a href="#" onClick={()=>{setModalOpen(true)}} className="text-blue-500 hover:text-blue-700 text-sm font-bold mt-2">Forgot Password?</a>
+                                <a href="#" onClick={()=>{setModalOpen(true)}} className="text-blue-700 hover:text-blue-900 text-sm font-bold mt-4">Forgot Password?</a>
                             </div>
-                            <div className="flex items-center justify-center">
-                                <button type="submit" ref={loginBtnRef} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mt-4">
+                            <div className="flex items-center justify-center flex-col">
+                                <button type="submit" ref={loginBtnRef} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mt-2">
                                     Login
                                 </button>
                                 {process.env["NEXT_PUBLIC_NFCAUTH_WS"] && (
@@ -96,6 +96,7 @@ const Login = () => {
                                         RFID Login
                                     </a>
                                 )}
+                                <a className="mt-4 text-gray-900 font-semibold hover:text-blackmt-4 text-gray-900 font-semibold hover:text-black" href="/signup">New? Join the tank!</a>
                             </div>
                         </form>
                     </div>
