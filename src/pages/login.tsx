@@ -5,13 +5,11 @@ import Swal from 'sweetalert2';
 import { getCacheFromPage } from '@/libs/userManager';
 import { NextPageContext } from 'next';
 import PasswordResetForm from '@/components/PasswordReset';
-import pwdrstStyle from '@/components/PasswordReset.module.css';
 
 const Login = () => {
     const usernameRef = React.createRef<HTMLInputElement>();
     const passwordRef = React.createRef<HTMLInputElement>();
     const loginBtnRef = React.createRef<HTMLButtonElement>();
-    const pwdRstModalRef = React.createRef<HTMLDivElement>();
     const [modalOpen, setModalOpen] = React.useState(false);
 
     function rfidHandler() {
@@ -91,11 +89,6 @@ const Login = () => {
                                 <button type="submit" ref={loginBtnRef} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mt-2">
                                     Login
                                 </button>
-                                {process.env["NEXT_PUBLIC_NFCAUTH_WS"] && (
-                                    <a onClick={rfidHandler} className="aBtn bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mt-4 ml-4">
-                                        RFID Login
-                                    </a>
-                                )}
                                 <a className="mt-4 text-gray-900 font-semibold hover:text-blackmt-4 text-gray-900 font-semibold hover:text-black" href="/signup">New? Join the tank!</a>
                             </div>
                         </form>

@@ -63,7 +63,7 @@ export type authData = {
  * @returns undefined if authentication fails, otherwise returns an authData object (containing sessionKey and user object)
  */
 export async function authenticate(username: string, password: string): Promise<authData | undefined> {
-    const UUID = randomBytes(128).toString('hex'); // Keep things simple for now
+    const UUID = randomBytes(128).toString('base64'); // Keep things simple for now
 
     // Search for user
     const user = await prisma.users.findUnique({
@@ -118,7 +118,7 @@ export async function register(username: string, email: string, password: string
     });
 
     // Create session (expires in 24hrs)
-    const UUID = randomBytes(128).toString('hex');
+    const UUID = randomBytes(128).toString('base64');
     await redis.set(`${redisPrefix}SESSION:${UUID}`, `${newUser.id}:${newUser.username}:${newUser.email}`, {EX: 86400});
     return {
         sessionKey: UUID, 
