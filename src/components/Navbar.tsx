@@ -65,7 +65,7 @@ export default class Navbar extends Component<props> {
                         alt="FinWise"
                       />
                     </Link>
-                    <Link href="/" className="px-2 text-3xl font-bold text-yellow-300">FinWise</Link>
+                    <Link href="/" className="px-2 text-3xl font-bold text-yellow-300 hover:text-yellow-200">FinWise</Link>
                   </div>
                 </div>
                 {/* Buttons */}
