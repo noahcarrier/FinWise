@@ -13,8 +13,8 @@ FinWise was created as a project for the Spring 2024 KnightHacks project competi
   <body>
   <table style="width: 100%;">
   <tr>
-    <td><a class="img" href="https://www.postgresql.org/" target="_blank"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/29/Postgresql_elephant.svg/125px-Postgresql_elephant.svg.png" alt="PostgreSQL" title="PostgreSQL"/></a></td>
-    <td><a href="https://redis.io/" target="_blank"><img src="https://davidsekar.gallerycdn.vsassets.io/extensions/davidsekar/redis-xplorer/1.2.7/1567965357906/Microsoft.VisualStudio.Services.Icons.Default" alt="Redis" title="redis"/></a></td>
+    <td><a class="img" href="https://www.postgresql.org/" target="_blank"><img src="https://github.com/noahcarrier/FinWise/blob/backend/logo_ref/postgresql.png?raw=true" alt="PostgreSQL" title="PostgreSQL"/></a></td>
+    <td><a href="https://redis.io/" target="_blank"><img src="https://github.com/noahcarrier/FinWise/blob/backend/logo_ref/redis.png?raw=true" alt="Redis" title="redis"/></a></td>
     <td><a href="https://sendgrid.com/en-us" target="_blank"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRSlFBw2QeA98VNkiAqZGBy-_xi3x0EZAMocskhQabe6Q&s" alt="Sendgrid" title="Sendgrid" style="max-height: 125px; max-width: 125px;"/></a></td>
     <td><a href="https://www.prisma.io/" target="_blank"><img src="https://avatars.githubusercontent.com/u/17219288?s=125&v=4" alt="Prisma" title="Prisma" style="max-height: 125px; max-width: 125px;"/></a></td>
   </tr>
