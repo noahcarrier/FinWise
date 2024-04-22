@@ -8,12 +8,15 @@ FinWise was created as a project for the Spring 2024 KnightHacks project competi
 
 # Software Stacks
 
-<table style="width: 100%; table-layout:fixed;">
+<html>
+
+  <body>
+  <table style="width: 100%;">
   <tr>
-    <td><a class="img" href="https://www.postgresql.org/" target="_blank"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/29/Postgresql_elephant.svg/1200px-Postgresql_elephant.svg.png" alt="PostgreSQL" title="PostgreSQL"/></a></td>
+    <td><a class="img" href="https://www.postgresql.org/" target="_blank"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/29/Postgresql_elephant.svg/125px-Postgresql_elephant.svg.png" alt="PostgreSQL" title="PostgreSQL"/></a></td>
     <td><a href="https://redis.io/" target="_blank"><img src="https://davidsekar.gallerycdn.vsassets.io/extensions/davidsekar/redis-xplorer/1.2.7/1567965357906/Microsoft.VisualStudio.Services.Icons.Default" alt="Redis" title="redis"/></a></td>
-    <td><a href="https://sendgrid.com/en-us" target="_blank"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRSlFBw2QeA98VNkiAqZGBy-_xi3x0EZAMocskhQabe6Q&s" alt="Sendgrid" title="Sendgrid"/></a></td>
-    <td><a href="https://www.prisma.io/" target="_blank"><img src="https://avatars.githubusercontent.com/u/17219288?s=200&v=4" alt="Prisma" title="Prisma"/></a></td>
+    <td><a href="https://sendgrid.com/en-us" target="_blank"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRSlFBw2QeA98VNkiAqZGBy-_xi3x0EZAMocskhQabe6Q&s" alt="Sendgrid" title="Sendgrid" style="max-height: 125px; max-width: 125px;"/></a></td>
+    <td><a href="https://www.prisma.io/" target="_blank"><img src="https://avatars.githubusercontent.com/u/17219288?s=125&v=4" alt="Prisma" title="Prisma" style="max-height: 125px; max-width: 125px;"/></a></td>
   </tr>
 </table>
 <table style="width: 100%; table-layout:fixed;">
@@ -26,6 +29,8 @@ FinWise was created as a project for the Spring 2024 KnightHacks project competi
     <td><a href="https://tailwindcss.com/" target="_blank"><img src="https://dsm01pap007files.storage.live.com/y4m-1TbADEvop6nW3Dpu-wtuD5sbQpDPSBY3uTqu1W8Bma5Ur5xD-rLT_UiH7_L98DvIBYna7GBmCugpJXUKPomhOS_esKRBluti0mA0ipxK2vjq8RMZYj03EIR2jlQZ9QtZF-xLvOSpTfs7M8rpPguX3YgOak0I5pvSiVzQvFihO_RNEkUeENmuLIZAmQg7VYsnQqtTZoQUl7GF-Pxsdxptg?encodeFailures=1&width=1270&height=648" alt="Tailwind CSS" title="Tailwind CSS"></a></td>
   </tr>
 </table>
+  </body>
+</html>
 and more...
 
 
