@@ -8,15 +8,15 @@ FinWise was created as a project for the Spring 2024 KnightHacks project competi
 
 # Software Stacks
 
-<table style="width: 100%;">
+<table style="width: 100%; table-layout:fixed;">
   <tr>
-    <td><a href="https://www.postgresql.org/" target="_blank"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/29/Postgresql_elephant.svg/1200px-Postgresql_elephant.svg.png" alt="PostgreSQL" title="PostgreSQL" height="125"/></a></td>
-    <td><a href="https://redis.io/" target="_blank"><img src="https://davidsekar.gallerycdn.vsassets.io/extensions/davidsekar/redis-xplorer/1.2.7/1567965357906/Microsoft.VisualStudio.Services.Icons.Default" alt="Redis" title="redis" height="125"/></a></td>
-    <td><a href="https://sendgrid.com/en-us" target="_blank"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRSlFBw2QeA98VNkiAqZGBy-_xi3x0EZAMocskhQabe6Q&s" alt="Sendgrid" title="Sendgrid" height="125"/></a></td>
-    <td><a href="https://www.prisma.io/" target="_blank"><img src="https://avatars.githubusercontent.com/u/17219288?s=200&v=4" alt="Prisma" title="Prisma" height="125"/></a></td>
+    <td><a class="img" href="https://www.postgresql.org/" target="_blank"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/29/Postgresql_elephant.svg/1200px-Postgresql_elephant.svg.png" alt="PostgreSQL" title="PostgreSQL"/></a></td>
+    <td><a href="https://redis.io/" target="_blank"><img src="https://davidsekar.gallerycdn.vsassets.io/extensions/davidsekar/redis-xplorer/1.2.7/1567965357906/Microsoft.VisualStudio.Services.Icons.Default" alt="Redis" title="redis"/></a></td>
+    <td><a href="https://sendgrid.com/en-us" target="_blank"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRSlFBw2QeA98VNkiAqZGBy-_xi3x0EZAMocskhQabe6Q&s" alt="Sendgrid" title="Sendgrid"/></a></td>
+    <td><a href="https://www.prisma.io/" target="_blank"><img src="https://avatars.githubusercontent.com/u/17219288?s=200&v=4" alt="Prisma" title="Prisma"/></a></td>
   </tr>
 </table>
-<table style="width: 100%;">
+<table style="width: 100%; table-layout:fixed;">
   <tr>
     <td><a href="https://nodejs.org/en" target="_blank"><img src="https://dsm01pap007files.storage.live.com/y4m3-l96lN9J4xx8R9bW7DZsGEdGUmtbqhsyq_ZhMFzE-VQw9dl7lWocKSkCCBg4PdFpoR9k6zzyrZZB5ZT2M7rlaaXF-wm2_AYEmwu-E8uZgmn7-ZNlAQo1xnowygfa9AgeQh2bBJKU3J_z7xjSk8XxW6HcG3pSaQhVdTgZe91mYuPq8JoIObEmjR11ocUx8-A57sEdjo3S6AWPDkWsHBncA?encodeFailures=1&width=1445&height=813" alt="NodeJS" title="NodeJS"/></a></td>
     <td><a href="https://nextjs.org/" target="_blank"><img src="https://dsm01pap007files.storage.live.com/y4mFb5lNEc_3ABwZDgJK5S1aBZZPn2Lbq0ZHaLKdUBaCxPN6aEDEVJ2aGurcPw4ZrUARMDs0k0v9FuzCmkUcNmg5pOQlwtEBwr7aGv3aIvL5M-0DTWEi8zwiqBLs4kD_NLTZjHJUgF_9eKoPMH8hlWo40lgNeDo1r7ewMeK3zHyezIftIiS1pi1c8cIjB3D8-VDSMnFFhtMKddHu84Iw9jvfQ?encodeFailures=1&width=1227&height=813" alt="NextJS" title="NextJS"></a></td>
