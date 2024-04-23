@@ -1,31 +1,48 @@
 import { PrismaClient } from '@prisma/client';
-import { Request, Response } from 'express';
+import {prisma} from './db';
+import { userProfile_T } from './userManager';
 
-const prisma = new PrismaClient();
+type lessonData = {
+  title: string;
+  userIdentity: userProfile_T;
+  questions: { question: string; answer: string; }[];
+}
 
-export const createLesson = async (req: Request, res: Response) => {
+export const createLesson = async (data: lessonData) => {
   try {
-    const { title, questions, user_id } = req.body;
-
-    const lesson = await prisma.lesson.create({
-      data: {
-        title,
-        user_id,
-        questions: {
-          create: questions.map((question: { question: string; answer: string; }) => ({
-            question: question.question,
-            answer: question.answer
-          })),
+    const lessonTX = await prisma.$transaction(async (tx) => {
+      // Create an empty lesson
+      const lesson = await tx.lesson.create({
+        data: {
+          title: data.title,
+          user_id: {
+            connect: {
+              id: data.userIdentity.id,
+            },
+          },
         },
-      },
-      include: {
-        questions: true,
-      },
+      });
+
+      // Create questions
+      for(const question of data.questions) {
+        await tx.lessonQuestion.create({
+          data: {
+            question: question.question,
+            answer: question.answer,
+            lesson_id: {
+              connect: {
+                lesson_id: lesson.lesson_id,
+              },
+            },
+          },
+        });
+      }
+      return lesson;
     });
 
-    res.status(201).json(lesson);
+    return lessonTX;
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: 'Failed to create lesson' });
+    return;
   }
 };
