@@ -47,6 +47,12 @@ const Login = () => {
                 
         });
     };
+    const togglePasswordVisibility = (ref) => {
+        const input = ref.current;
+        if (input) {
+            input.type = input.type === 'password' ? 'text' : 'password';
+        }
+    };
 
     // DEV Mode does not require credentials
     useEffect(()=> {
@@ -74,16 +80,23 @@ const Login = () => {
                                     required
                                 />
                             </div>
-                            <div className="mb-6">
+                            <div className="mb-6 relative">
                                 <label htmlFor="password" className="block text-gray-700 text-sm font-bold mb-2">Password:</label>
                                 <input
-                                    type="password"
+                                    type={passwordRef.current?.type || 'password'}
                                     id="password"
                                     ref={passwordRef}
                                     className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                                     required
                                 />
-                                <a href="#" onClick={()=>{setModalOpen(true)}} className="text-blue-700 hover:text-blue-900 text-sm font-bold mt-4">Forgot Password?</a>
+                                <button
+                                    type="button"
+                                    className="absolute right-0 transform -translate-y-1/5 pr-2"
+                                    onClick={() => togglePasswordVisibility(passwordRef)}
+                                >
+                                    <img src='/icons/FishBowl.svg' alt={passwordRef.current?.type === 'password' ? 'Hide' : 'Show'} className="h-10 w-10"/>
+                                </button>
+                                <a href="#" onClick={() => {setModalOpen(true)}} className="text-blue-700 hover:text-blue-900 text-sm font-bold mt-4">Forgot Password?</a>
                             </div>
                             <div className="flex items-center justify-center flex-col">
                                 <button type="submit" ref={loginBtnRef} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mt-2">
