@@ -17,41 +17,51 @@ const Signup = () => {
   const confirmPasswordRef = useRef<HTMLInputElement>(null);
   const regBtnRef = useRef<HTMLButtonElement>(null);
 
-    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault(); // this prevents the page from reloading after submitting the form
-        
-        // Check passwords match
-        if(password !== confirmPassword)
-            return Swal.fire('Form Validation', 'Passwords do not match', 'error');
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault(); // this prevents the page from reloading after submitting the form
+    // Check passwords match
+    if (password !== confirmPassword) {
+      return Swal.fire('Form Validation', 'Passwords do not match', 'error');
+    }
+    // Validate password security (Just 8 character and some number for now)
+    if (password.length < 8 || !/\d/.test(password)) {
+      return Swal.fire('Form Validation', 'Password must be at least 8 characters long and contain at least one number', 'error');
+    }
+    //loading super duper cool popup
+    Swal.fire({
+      title: 'Registering...',
+      html: 'Please wait...',
+      allowOutsideClick: false,
+      onBeforeOpen: () => {
+        Swal.showLoading();
+      }
+    });
 
-        // Validate password security (Just 8 character and some number for now)
-        if(password.length < 8 || !/\d/.test(password))
-            return Swal.fire('Form Validation', 'Password must be at least 8 characters long and contain at least one number', 'error');
+    regBtnRef.current?.setAttribute('disabled', 'true'); //disable button so they can't activate button again
 
-        // Send the form data to the server
-        
-        // @TODO: Frontend dev, plz add a little loading animation to register btn
-        regBtnRef.current?.setAttribute('disabled', 'true');
-
-        fetch('/auth/register', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({username, email, password})
-        }).then(async res => {
-            if(res.status !== 200)
-              return Swal.fire('Error', await res.text(), 'error').then(() => {
-                // @TODO: Remove the loading animation here
-                regBtnRef.current?.removeAttribute('disabled');
-              });
-            Swal.fire('Success', await res.text(), 'success').then(() => {
-              // Redirect user to the main page
-              window.location.replace('/dashboard');
-            });
-                
-        })
-    };
+    try {
+      const res = await fetch('/auth/register', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ username, email, password })
+      });
+  
+      if (res.status !== 200) {
+        throw await res.text();
+      }
+  
+      Swal.fire('Success', await res.text(), 'success').then(() => {
+        window.location.replace('/dashboard');
+      });
+    } catch (error) {
+      Swal.fire('Error', error.toString(), 'error');
+    } finally {
+      Swal.close(); 
+      regBtnRef.current?.removeAttribute('disabled'); //reactuvate button
+    }
+  }
     const togglePasswordVisibility = (ref) => {
       const input = ref.current;
       if (input) {
