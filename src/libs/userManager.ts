@@ -4,6 +4,8 @@ import { getCookie, setCookie, deleteCookie } from "cookies-next";
 import { IncomingMessage, ServerResponse } from "http";
 import { NextPageContext } from "next";
 
+export type userProfile_T = InstanceType<typeof userProfile>;
+
 class userProfile {
     public readonly id: number;
     public readonly username: string;

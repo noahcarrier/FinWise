@@ -22,7 +22,7 @@ model lesson {
   lesson_id  Int             @id @default(autoincrement())
   title      String
   created_at DateTime        @default(now()) @db.Timestamp(6)
-  id         users           @relation(fields: [lesson_id], references: [id])
+  user_id    users           @relation(fields: [lesson_id], references: [id])
   questions  lessonQuestion?
 }
 
