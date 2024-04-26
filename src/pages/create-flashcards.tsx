@@ -20,14 +20,14 @@ export default class CreateFlashCard extends React.Component<any, state>{
         }
     }
     
-    genCards(question: string, answer: string) {
+    genCards = (question: string, answer: string) => {
         return (<div className="bg-white rounded-lg p-4 mt-4 w-96 mx-auto" style={{maxWidth: "250px", maxHeight: "150px"}}>
             <h2 className="text-gray-800 text-2xl font-bold mb-2">{question}</h2>
             <h2 className="text-gray-800 text-lg mt-2">{answer}</h2>
         </div>)
     }
 
-    addCard() {
+    addCard = () => {
         const question = this.questionInputRef.current;
         const answer = this.answerInputRef.current;
     
@@ -48,7 +48,7 @@ export default class CreateFlashCard extends React.Component<any, state>{
         answer.value = '';
     }
 
-    buildLesson() {
+    buildLesson = () => {
         //@TODO: Edit this function to fit the current setup...
         const cards = document.getElementById('createdCards');
         if (cards) {
