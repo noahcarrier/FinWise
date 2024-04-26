@@ -10,7 +10,8 @@ type lessonData = {
 
 export const createLesson = async (data: lessonData) => {
   try {
-    const lessonTX = await prisma.$transaction(async (tx) => {
+
+    return await prisma.$transaction(async (tx) => {
       // Create an empty lesson
       const lesson = await tx.lesson.create({
         data: {
@@ -40,9 +41,36 @@ export const createLesson = async (data: lessonData) => {
       return lesson;
     });
 
-    return lessonTX;
   } catch (error) {
     console.error(error);
     return;
   }
+};
+
+type addFlashcardData = {
+  question: string;
+  answer: string;
+  lessonId: number;
+}
+
+export const addFlashcard = async (data: addFlashcardData) => {
+  return await prisma.lessonQuestion.create({
+    data: {
+      question: data.question,
+      answer: data.answer,
+      lesson_id: {
+        connect: {
+          lesson_id: data.lessonId,
+        },
+      },
+    },
+  });
+};
+
+export const deleteFlashcard = async (flashcardId: number) => {
+  return await prisma.lessonQuestion.delete({
+    where: {
+      question_id: flashcardId,
+    },
+  });
 };
