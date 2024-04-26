@@ -3,7 +3,7 @@ import Navbar from '../components/Navbar';
 import "../app/globals.css";
 import { getCacheFromPage } from '../libs/userManager';
 import { NextPageContext } from 'next';
-
+import { createLesson } from '../libs/createFlashcards'; 
 
 
 export default function Create() {
@@ -39,11 +39,12 @@ export default function Create() {
             
             {/* publish lesson button */}
             <div className="flex justify-center mt-10">
-                <button id = "publishButton"  className="text-yellow-200 text-lg font-bold bg-blue-700 hover:bg-blue-600 text-white px-4 py-2 rounded-md hidden">Publish Lesson</button>
+            <button onClick={buildLesson} className="text-yellow-200 text-lg font-bold bg-blue-700 hover:bg-blue-600 text-white px-4 py-2 rounded-md">Publish Lesson</button>
             </div>
         </main>
     );
 }
+
 
 
 // add card
@@ -104,4 +105,33 @@ export const getServerSideProps = async (context: NextPageContext) => {
     return {
         props: {}
     }
+}
+
+export const buildLesson = () => {
+    const cards = document.getElementById('createdCards');
+    if (cards) {
+      const questions = cards.children;
+      const lessonData: LessonData = {
+        title: 'Lesson Title',
+        userIdentity: {
+          id: 1 // !!! REPLACE WITH ACTUAL USER ID FROM DB !!!
+        },
+        questions: []
+      };
+      for (let i = 0; i < questions.length; i++) {
+        const question = questions[i].children[0].innerHTML;
+        const answer = questions[i].children[1].innerHTML;
+        lessonData.questions.push({ question, answer });
+      }
+      return lessonData;
+    }
+
+};
+  
+
+const lessonData = buildLesson();
+  if (lessonData) {
+    createLesson(lessonData);
+  } else {
+
 }
