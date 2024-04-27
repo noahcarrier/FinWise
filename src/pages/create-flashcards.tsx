@@ -27,7 +27,7 @@ export default class CreateFlashCard extends React.Component<any, state>{
         </div>)
     }
 
-    addCard = () => {
+    addCard =  () => {
         const question = this.questionInputRef.current;
         const answer = this.answerInputRef.current;
     
@@ -91,11 +91,11 @@ export default class CreateFlashCard extends React.Component<any, state>{
                 <div className="flex justify-center mt-6 mb-6">
                     <div className="bg-white rounded-lg p-4 mr-4">
                         <h2 className="text-gray-800 text-lg font-bold mb-2">Question</h2>
-                        <input type="text" id="questionInput" className="text-black border border-gray-300 rounded-md px-3 py-2 w-64" placeholder="Enter your question" />
+                        <input type="text" ref= {this.questionInputRef} id="questionInput" className="text-black border border-gray-300 rounded-md px-3 py-2 w-64" placeholder="Enter your question" />
                     </div>
                     <div className="bg-white rounded-lg p-4">
                         <h2 className="text-gray-800 text-lg font-bold mb-2">Answer</h2>
-                        <input type="text" id="answerInput" className="text-black border border-gray-300 rounded-md px-3 py-2 w-64" placeholder="Enter your answer" />
+                        <input type="text" ref= {this.answerInputRef} id="answerInput" className="text-black border border-gray-300 rounded-md px-3 py-2 w-64" placeholder="Enter your answer" />
                     </div>
                 </div>
                 {/* add card button */}
