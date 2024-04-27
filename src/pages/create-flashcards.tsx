@@ -11,27 +11,27 @@ export default function Create() {
         <main className="bg-gradient-to-b from-cyan-500 to-blue-700 min-h-screen">
             <Navbar isAuthed={true}/>
             <div className='mt-8'>
-                <a href="/create" className="ml-32 text-yellow-200 text-lg font-bold bg-blue-700 hover:bg-blue-600 text-white px-4 py-2 rounded-md"> ← Go Back</a>
+                <a href="/create" className="ml-32 text-gray-800 text-lg font-bold bg-yellow-300 hover:bg-yellow-200 px-4 py-2 rounded-md shadow-md"> ← Go Back</a>
             </div>
 
             {/* title */}
             <div className="flex flex-col items-center mt-6 ">
-                <h1 className="text-yellow-200 text-5xl font-bold">Create Flashcards</h1>
+                <h1 className="text-white text-5xl font-bold">Create Flashcards</h1>
             </div>
             {/* question and answer input */}
             <div className="flex justify-center mt-6 mb-6">
-                <div className="bg-white rounded-lg p-4 mr-4">
+                <div className="bg-yellow-300 rounded-lg p-4 mr-4 shadow-lg">
                     <h2 className="text-gray-800 text-lg font-bold mb-2">Question</h2>
-                    <input type="text" id="questionInput" className="text-black border border-gray-300 rounded-md px-3 py-2 w-64" placeholder="Enter your question" />
+                    <input type="text" id="questionInput" className="text-gray-800 bg-yellow-100 border border-gray-300 placeholder-gray-400 rounded-md px-3 py-2 w-64" placeholder="Enter your question" />
                 </div>
-                <div className="bg-white rounded-lg p-4">
+                <div className="bg-yellow-300 rounded-lg p-4 shadow-lg">
                     <h2 className="text-gray-800 text-lg font-bold mb-2">Answer</h2>
-                    <input type="text" id="answerInput" className="text-black border border-gray-300 rounded-md px-3 py-2 w-64" placeholder="Enter your answer" />
+                    <input type="text" id="answerInput" className="text-gray-800 bg-yellow-100 border border-gray-300 rounded-md px-3 py-2 w-64" placeholder="Enter your answer" />
                 </div>
             </div>
             {/* add card button */}
             <div className="flex justify-center mt-10">
-                <button onClick={addCard} className="text-yellow-200 text-lg font-bold bg-blue-700 hover:bg-blue-600 text-white px-4 py-2 rounded-md">Add Card</button>
+                <button onClick={addCard} className="text-lg font-bold bg-yellow-300  hover:bg-yellow-200 text-gray-800 px-4 py-2 rounded-md shadow-md">Add Card</button>
             </div>
             {/* div for cards to be inserted into */}
             <div id = "createdCards">
@@ -39,7 +39,7 @@ export default function Create() {
             
             {/* publish lesson button */}
             <div className="flex justify-center mt-10">
-                <button id = "publishButton"  className="text-yellow-200 text-lg font-bold bg-blue-700 hover:bg-blue-600 text-white px-4 py-2 rounded-md hidden">Publish Lesson</button>
+                <button id = "publishButton"  className=" text-lg font-bold bg-yellow-300 hover:bg-yellow-200 text-gray-800 px-4 py-2 rounded-md hidden">Publish Lesson</button>
             </div>
         </main>
     );
@@ -60,7 +60,7 @@ function addCard() {
     console.log("Answer: " + answer);
 
     const card = document.createElement('div');
-    card.className = 'bg-white rounded-lg p-4 mt-4 w-96 mx-auto';
+    card.className = 'bg-yellow-300 rounded-lg p-4 mt-4 w-96 mx-auto';
     card.innerHTML = `
         <h2 class="text-gray-800 text-2xl font-bold mb-2">${question}</h2>
         <h2 class="text-gray-800 text-lg mt-2">${answer}</h2>
