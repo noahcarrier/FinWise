@@ -10,7 +10,8 @@ import { Bounce } from 'react-toastify';
 
 
 type state = {
-    questions: JSX.Element[];
+    questions: {question: string; answer: string;}[];
+    title: string;
 }
 
 export default class CreateFlashcards extends React.Component<any, state> {
@@ -22,7 +23,8 @@ export default class CreateFlashcards extends React.Component<any, state> {
     constructor(props: any) {
         super(props);
         this.state = {
-            questions: []
+            questions: [],
+            title: "",
         }
     }
 
@@ -58,10 +60,20 @@ export default class CreateFlashcards extends React.Component<any, state> {
         console.log("Answer: " + answer);
 
         const card = this.createCard(question.value, answer.value);
-        this.setState({ questions: [...this.state.questions, card] });
+        this.setState({ questions: [...this.state.questions, {question: question.value, answer: answer.value}] });
 
         question.value = '';
         answer.value = '';
+    }
+
+    publishBtn = async () => {
+        const res = await fetch('/card/publish', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ title: this.state.title, questions: this.state.questions })
+        });
     }
 
     componentDidUpdate(prevProps: Readonly<any>, prevState: Readonly<state>, snapshot?: any): void {
@@ -86,6 +98,12 @@ export default class CreateFlashcards extends React.Component<any, state> {
                     <div className="flex flex-col items-center mt-6 ">
                         <h1 className="text-white text-5xl font-bold">Create Flashcards</h1>
                     </div>
+
+                    {/* create lesson title */}
+                    <div className = "flex justify-center m-6">
+                        <input placeholder="Enter a lesson title" value={this.state.title} onChange={(val)=>this.setState({title: val.target.value})} style = {{width :'30%'}} className = "rounded-lg text-center text-black bg-yellow-100 pl-12 pr-12 pt-2 pb-2"></input>
+                    </div>
+
                     {/* question and answer input */}
                     <div className="flex justify-center mt-6 mb-6">
                         <div className="bg-yellow-300 rounded-lg p-4 mr-4 shadow-lg">
@@ -103,12 +121,12 @@ export default class CreateFlashcards extends React.Component<any, state> {
                     </div>
                     {/* div for cards to be inserted into */}
                     <div id="createdCards" style={{display: "grid", gridTemplateColumns: "repeat(4, minmax(250px, 1fr))", gap: "0.5rem"}}>
-                        {this.state.questions}
+                        {this.state.questions.map((card, index) => this.createCard(card.question, card.answer))}
                     </div>
     
                     {/* publish lesson button */}
                     <div className="flex justify-center mt-10">
-                        <button id="publishButton" className=" text-lg font-bold bg-yellow-300 hover:bg-yellow-200 text-gray-800 px-4 py-2 rounded-md hidden">Publish Lesson</button>
+                        <button id="publishButton" onClick={this.publishBtn} className=" text-lg font-bold bg-yellow-300 hover:bg-yellow-200 text-gray-800 px-4 py-2 rounded-md hidden">Publish Lesson</button>
                     </div>
     
     
