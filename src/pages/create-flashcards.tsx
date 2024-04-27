@@ -1,6 +1,7 @@
 import React from 'react';
 import Navbar from '../components/Navbar';
 import "../app/globals.css";
+import axios from 'axios';
 import { getCacheFromPage } from '../libs/userManager';
 import { NextPageContext } from 'next';
 import { ToastContainer, toast } from 'react-toastify';
