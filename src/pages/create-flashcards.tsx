@@ -64,6 +64,12 @@ export default class CreateFlashcards extends React.Component<any, state> {
 
         question.value = '';
         answer.value = '';
+
+        const addCardBtn = document.getElementById("publishButton");
+        if (addCardBtn) {
+            addCardBtn.style.display = "block";
+        }
+        console.log("Unhide add card button");
     }
 
     publishBtn = async () => {
@@ -101,7 +107,7 @@ export default class CreateFlashcards extends React.Component<any, state> {
 
                     {/* create lesson title */}
                     <div className = "flex justify-center m-6">
-                        <input placeholder="Enter a lesson title" value={this.state.title} onChange={(val)=>this.setState({title: val.target.value})} style = {{width :'30%'}} className = "rounded-lg text-center text-black bg-yellow-100 pl-12 pr-12 pt-2 pb-2"></input>
+                        <input placeholder="Enter a lesson title" style = {{width :'30%'}}className = "rounded-lg text-center text-black bg-yellow-100 pl-12 pr-12 pt-2 pb-2"></input>
                     </div>
 
                     {/* question and answer input */}
