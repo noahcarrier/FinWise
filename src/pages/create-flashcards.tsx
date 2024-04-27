@@ -27,6 +27,9 @@ export default class CreateFlashCard extends React.Component<any, state>{
         </div>)
     }
 
+
+    // addCard function, primarily role is to display the current set user wants to add
+    // this is not considered to be cards actually being sent to DB until they are published
     addCard =  () => {
         const question = this.questionInputRef.current;
         const answer = this.answerInputRef.current;
@@ -36,8 +39,8 @@ export default class CreateFlashCard extends React.Component<any, state>{
             return;
         }
     
-        console.log("Question: " + question);
-        console.log("Answer: " + answer);
+        console.log("Question: " + question.value);
+        console.log("Answer: " + answer.value);
     
         const card = this.genCards(question.value, answer.value);
     
@@ -46,6 +49,15 @@ export default class CreateFlashCard extends React.Component<any, state>{
     
         question.value = '';
         answer.value = '';
+
+
+        // unhide publish button once first card has been added
+        const publishButton = document.getElementById("publishButton");
+        if (publishButton) {
+            publishButton.style.display = "block"
+            console.log("Attempted unhide")
+        }
+
     }
 
     buildLesson = () => {
@@ -109,7 +121,7 @@ export default class CreateFlashCard extends React.Component<any, state>{
                 
                 {/* publish lesson button */}
                 <div className="flex justify-center mt-10">
-                <button onClick={this.buildLesson} ref={this.publishButtonRef} className="text-yellow-200 text-lg font-bold bg-blue-700 hover:bg-blue-600 text-white px-4 py-2 rounded-md">Publish Lesson</button>
+                <button id= "publishButton" onClick={this.buildLesson} ref={this.publishButtonRef} className="text-yellow-200 text-lg font-bold bg-blue-700 hover:bg-blue-600 text-white px-4 py-2 rounded-md hidden">Publish Lesson</button>
                 </div>
             </main>
         );
