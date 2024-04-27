@@ -16,7 +16,7 @@ type state = {
 export default class CreateFlashcards extends React.Component<any, state> {
     questionInput = React.createRef<HTMLInputElement>();
     answerInput = React.createRef<HTMLInputElement>();
-    publishBtn = React.createRef<HTMLButtonElement>();
+    cardBtn = React.createRef<HTMLButtonElement>();
 
 
     constructor(props: any) {
@@ -65,12 +65,12 @@ export default class CreateFlashcards extends React.Component<any, state> {
     }
 
     componentDidUpdate(prevProps: Readonly<any>, prevState: Readonly<state>, snapshot?: any): void {
-        const pubBtn = this.publishBtn.current;
-        if(pubBtn)
+        const addBtn = this.cardBtn.current;
+        if(addBtn)
             if(this.state.questions.length === 0)
-                pubBtn.style.display = 'none';
+                addBtn.style.display = 'none';
             else
-                pubBtn.style.display = 'block';
+                addBtn.style.display = 'block';
     }
 
     render() {
@@ -99,7 +99,7 @@ export default class CreateFlashcards extends React.Component<any, state> {
                     </div>
                     {/* add card button */}
                     <div className="flex justify-center mt-10">
-                        <button onClick={this.addCard} ref={this.publishBtn} className="text-lg font-bold bg-yellow-300  hover:bg-yellow-200 text-gray-800 px-4 py-2 rounded-md shadow-md">Add Card</button>
+                        <button onClick={this.addCard} ref={this.cardBtn} className="text-lg font-bold bg-yellow-300  hover:bg-yellow-200 text-gray-800 px-4 py-2 rounded-md shadow-md">Add Card</button>
                     </div>
                     {/* div for cards to be inserted into */}
                     <div id="createdCards" style={{display: "grid", gridTemplateColumns: "repeat(4, minmax(250px, 1fr))", gap: "0.5rem"}}>
