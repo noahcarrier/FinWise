@@ -1,14 +1,18 @@
 import { PrismaClient } from '@prisma/client';
 import {prisma} from './db';
 import { userProfile_T } from './userManager';
+import axios from 'axios';
 
-type lessonData = {
+export type lessonData = {
   title: string;
-  userIdentity: userProfile_T;
   questions: { question: string; answer: string; }[];
 }
 
-export const createLesson = async (data: lessonData) => {
+interface lessonDataReq extends lessonData {
+  userIdentity: userProfile_T;
+}
+
+export const createLesson = async (data: lessonDataReq) => {
   try {
 
     return await prisma.$transaction(async (tx) => {
@@ -16,7 +20,7 @@ export const createLesson = async (data: lessonData) => {
       const lesson = await tx.lesson.create({
         data: {
           title: data.title,
-          user_id: {
+          id: {
             connect: {
               id: data.userIdentity.id,
             },
@@ -38,6 +42,8 @@ export const createLesson = async (data: lessonData) => {
           },
         });
       }
+      const response = await axios.post('/api/publishLesson', lesson);
+      console.log(response.data);
       return lesson;
     });
 

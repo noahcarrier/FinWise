@@ -1,3 +1,4 @@
+-- SQLBook: Code
 /* User Table */
 
 CREATE TABLE users (
