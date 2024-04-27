@@ -57,13 +57,6 @@ export default class CreateFlashCard extends React.Component<any, state>{
         answer.value = '';
 
 
-        // unhide publish button once first card has been added
-        const publishButton = document.getElementById("publishButton");
-        if (publishButton) {
-            publishButton.style.display = "block"
-            console.log("Attempted unhide")
-        }
-
     }
 
     buildLesson = () => {
@@ -88,9 +81,13 @@ export default class CreateFlashCard extends React.Component<any, state>{
     }
 
     componentDidUpdate(prevProps: Readonly<any>, prevState: Readonly<state>): void {
+        // Unhide publish btn if there are cards
         const publishButton = this.publishButtonRef.current;
-        if(this.state.questionsElement.length > 0 && publishButton) 
-            publishButton.style.display = 'block';
+        if(publishButton)
+            if(this.state.questionsElement.length > 0) 
+                publishButton.style.display = 'block';
+            else 
+                publishButton.style.display = 'none';
     }
 
     render() {
