@@ -62,6 +62,12 @@ export default class CreateFlashcards extends React.Component<any, state> {
 
         question.value = '';
         answer.value = '';
+
+        const addCardBtn = document.getElementById("publishButton");
+        if (addCardBtn) {
+            addCardBtn.style.display = "block";
+        }
+        console.log("Unhide add card button");
     }
 
     componentDidUpdate(prevProps: Readonly<any>, prevState: Readonly<state>, snapshot?: any): void {
@@ -86,6 +92,10 @@ export default class CreateFlashcards extends React.Component<any, state> {
                     <div className="flex flex-col items-center mt-6 ">
                         <h1 className="text-white text-5xl font-bold">Create Flashcards</h1>
                     </div>
+                    {/* create lesson title */}
+                    <div className = "flex justify-center m-6">
+                        <input placeholder="Enter a lesson title" style = {{width :'30%'}}className = "rounded-lg text-center text-black bg-yellow-100 pl-12 pr-12 pt-2 pb-2"></input>
+                    </div>
                     {/* question and answer input */}
                     <div className="flex justify-center mt-6 mb-6">
                         <div className="bg-yellow-300 rounded-lg p-4 mr-4 shadow-lg">
@@ -99,7 +109,7 @@ export default class CreateFlashcards extends React.Component<any, state> {
                     </div>
                     {/* add card button */}
                     <div className="flex justify-center mt-10">
-                        <button onClick={this.addCard} ref={this.publishBtn} className="text-lg font-bold bg-yellow-300  hover:bg-yellow-200 text-gray-800 px-4 py-2 rounded-md shadow-md">Add Card</button>
+                        <button id = "addCardBtn" onClick={this.addCard} ref={this.publishBtn} className="text-lg font-bold bg-yellow-300  hover:bg-yellow-200 text-gray-800 px-4 py-2 rounded-md shadow-md">Add Card</button>
                     </div>
                     {/* div for cards to be inserted into */}
                     <div id="createdCards" style={{display: "grid", gridTemplateColumns: "repeat(4, minmax(250px, 1fr))", gap: "0.5rem"}}>
