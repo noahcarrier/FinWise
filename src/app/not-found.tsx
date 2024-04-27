@@ -14,7 +14,7 @@ const NotFound = async () => {
                 <Navbar isAuthed={isAuth}/>
                 <div className="flex justify-center items-center flex-1">
                     <div className="w-full max-w-xl">
-                        <div className="bg-yellow-300 shadow-box rounded-2xl p-5 ">
+                        <div className="bg-yellow-300 shadow-box rounded-2xl p-5">
                             <img src="/NotFound.png" alt="404 Not Found"/>
                             <h1 className='text-center text-black font-bold text-2xl mb-9'>404 - Page goes brrrr :(</h1>
                         </div>
