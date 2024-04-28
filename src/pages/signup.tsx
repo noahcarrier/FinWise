@@ -31,13 +31,27 @@ const Signup = () => {
       title: 'Registering...',
       html: '<div id="loading-screen-container"></div>',
       allowOutsideClick: false,
+      showConfirmButton: false,
+      width: '80%', 
+      customClass: {
+        popup: 'swal-height'
+      },
       willOpen: () => {
         ReactDOM.render(<LoadingScreen />, document.getElementById('loading-screen-container'));
       },
       willClose: () => {
         ReactDOM.unmountComponentAtNode(document.getElementById('loading-screen-container')!);
+      },
+      // Apply inline style for height
+      didOpen: () => {
+        const modal = document.querySelector('.swal2-modal');
+        if (modal) {
+          modal.style.height = '80%'; // Adjust height as needed
+        }
       }
     });
+    
+  
 
     regBtnRef.current?.setAttribute('disabled', 'true');
 
