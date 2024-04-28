@@ -7,29 +7,30 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model lesson {
+  id             Int              @id @default(autoincrement())
+  user_id        Int
+  title          String
+  created_at     DateTime         @default(now()) @db.Timestamp(6)
+  users          users            @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  lessonquestion lessonquestion[]
+}
+
+model lessonquestion {
+  id        Int     @id @default(autoincrement())
+  lesson_id Int
+  question  String
+  answer    String
+  attempt   Boolean @default(false)
+  lesson    lesson  @relation(fields: [lesson_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
+
 model users {
   id         Int      @id @default(autoincrement())
+  username   String   @unique
   email      String
   password   String
   salt       String
   created_at DateTime @default(now()) @db.Timestamp(6)
-  username   String   @unique
-  rfidkey    String?  @unique
-  lessons    lesson?
-}
-
-model lesson {
-  lesson_id  Int             @id @default(autoincrement())
-  title      String
-  created_at DateTime        @default(now()) @db.Timestamp(6)
-  user_id    users           @relation(fields: [lesson_id], references: [id])
-  questions  lessonQuestion?
-}
-
-model lessonQuestion {
-  question_id Int     @id @default(autoincrement())
-  question    String
-  answer      String
-  attempt     Boolean @default(false)
-  lesson_id   lesson  @relation(fields: [question_id], references: [lesson_id])
+  lesson     lesson[]
 }
