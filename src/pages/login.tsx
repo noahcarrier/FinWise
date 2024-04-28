@@ -5,6 +5,7 @@ import Swal from 'sweetalert2';
 import { getCacheFromPage } from '@/libs/userManager';
 import { NextPageContext } from 'next';
 import PasswordResetForm from '@/components/PasswordReset';
+import NavbarNoButtons from '@/components/NavbarNoButtons';
 
 const Login = () => {
   const usernameRef = React.createRef<HTMLInputElement>();
@@ -65,7 +66,7 @@ const Login = () => {
   return (
     <Fragment>
       <div className="flex flex-col bg-gradient-to-b from-cyan-500 to-blue-700 min-h-screen">
-        <Navbar isAuthed={false} />
+        <NavbarNoButtons isAuthed={false} />
         <div className="flex justify-center items-center flex-1">
           <div className="w-full max-w-xl bg-yellow-300 rounded-lg drop-shadow-lg">
             <form onSubmit={handleSubmit} className="p-12 mb-2 ">
