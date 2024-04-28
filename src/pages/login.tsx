@@ -5,6 +5,7 @@ import Swal from 'sweetalert2';
 import { getCacheFromPage } from '@/libs/userManager';
 import { NextPageContext } from 'next';
 import PasswordResetForm from '@/components/PasswordReset';
+import Link from 'next/link';
 
 const Login = () => {
   const usernameRef = React.createRef<HTMLInputElement>();
@@ -102,7 +103,7 @@ const Login = () => {
                 <button type="submit" ref={loginBtnRef} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mt-2">
                   Login
                 </button>
-                <a className="mt-4 text-blue-500 font-semibold  hover:text-blue-700 underline" href="/signup">New? Join the tank!</a>
+                <Link className="mt-4 text-blue-500 font-semibold  hover:text-blue-700 underline" href="/signup">New? Join the tank!</Link>
               </div>
             </form>
           </div>

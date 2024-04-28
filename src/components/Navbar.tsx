@@ -73,7 +73,7 @@ export default class Navbar extends Component<props> {
                   <div className="hidden sm:ml-6 sm:block">
                     <div className="flex space-x-4">
                       {(this.props.isAuthed ? AuthNavigation : UnAuthNavigation).map((item) => (
-                        <a
+                        <Link
                           key={item.name}
                           href={item.href}
                           className={classNames(
@@ -83,7 +83,7 @@ export default class Navbar extends Component<props> {
                           aria-current={item.current ? 'page' : undefined}
                         >
                           {item.name}
-                        </a>
+                        </Link>
                       ))}
                     </div>
                   </div>

@@ -1,6 +1,7 @@
 import SearchBar from "./SearchBar";
 import { Fragment, useState } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
+import Link from "next/link";
 
 export default function DashboardContent() {
   let [isCreateStudySetModalOpen, setIsCreateStudySetModalOpen] = useState(false);
@@ -76,10 +77,10 @@ export default function DashboardContent() {
                 <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-gradient-to-b from-cyan-300 to-blue-600 p-6 text-left align-middle shadow-xl transition-all">
                   <Dialog.Title as="h3" className="text-4xl font-bold leading-6 text-black text-center">Create StudySet</Dialog.Title>
                   <div className="flex flex-col items-center mt-6">
-                    <a href="/create-flashcards" className="bg-yellow-300 hover:bg-yellow-200 rounded-lg shadow-lg p-6">
+                    <Link href="/create-flashcards" className="bg-yellow-300 hover:bg-yellow-200 rounded-lg shadow-lg p-6">
                       <img src="icons/flashcards.png" className="w-full mb-" title="Flashcards Icon" />
                       <h2 className="text-black m-4 text-3xl text-center font-bold mb-4">Flashcards</h2>
-                    </a>
+                    </Link>
                   </div>
                   <button onClick={closeCreateStudySetModal} className="bg-yellow-300 hover:bg-yellow-200 text-black rounded-lg px-2 py-1 font-semibold shadow-lg float-end">Close</button>
                 </Dialog.Panel>

@@ -7,6 +7,7 @@ import { NextPageContext } from 'next';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { Bounce } from 'react-toastify';
+import Link from 'next/link';
 
 
 type state = {
@@ -97,7 +98,7 @@ export default class CreateFlashcards extends React.Component<any, state> {
                 <main className="bg-gradient-to-b from-cyan-500 to-blue-700 min-h-screen">
                     <Navbar isAuthed={true} />
                     <div className='mt-8'>
-                        <a href="/create" className="ml-32 text-gray-800 text-lg font-bold bg-yellow-300 hover:bg-yellow-200 px-4 py-2 rounded-md shadow-md"> ← Go Back</a>
+                        <Link href="/create" className="ml-32 text-gray-800 text-lg font-bold bg-yellow-300 hover:bg-yellow-200 px-4 py-2 rounded-md shadow-md"> ← Go Back</Link>
                     </div>
     
                     {/* title */}
