@@ -70,21 +70,45 @@ export async function getLessonsById(userId: number) {
   }
 }
 
-/*
-export const getLessonById = async (lessonId: number) => {
+export async function GET_SINGLE(request: Request, lessonId: number) {
+  // Pull user session
+  const user = await getUserFromCache(cookies().get("session")?.value);
+  if (!user)
+    return new Response('Auth Required', { status: 402 });
+
   try {
-    // Use Prisma to fetch the lesson based on its ID
-    const lesson = await prisma.lesson.findUnique({
+    const lesson = await getSpecificLessonById(lessonId);
+
+    if (!lesson) {
+      return new Response('Lesson not found', { status: 404 });
+    }
+
+    // Ensure the requested lesson belongs to the user
+    if (lesson.user_id !== user.id) {
+      return new Response('Unauthorized', { status: 403 });
+    }
+
+    return new Response(JSON.stringify(lesson), { status: 200 });
+
+  } catch (error) {
+    console.error("Error fetching lesson:", error);
+    return new Response('Internal Server Error', { status: 500 })
+  }
+}
+
+export const getSpecificLessonById = async (lessonId: number) => {
+  try {
+    const lesson = await prisma?.lesson.findUnique({
       where: {
         id: lessonId,
       },
       include: {
-        lessonquestion: true, // Include associated questions with the lesson
+        lessonquestion: true, 
       },
     });
     return lesson;
   } catch (error) {
     console.error(error);
-    return null; // Return null if there's an error
+    return null;
   }
-};*/
+};
