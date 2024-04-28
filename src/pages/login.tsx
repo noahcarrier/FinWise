@@ -6,12 +6,14 @@ import { getCacheFromPage } from '@/libs/userManager';
 import { NextPageContext } from 'next';
 import PasswordResetForm from '@/components/PasswordReset';
 import NavbarNoButtons from '@/components/NavbarNoButtons';
+import Link from 'next/link';
 
 const Login = () => {
   const usernameRef = React.createRef<HTMLInputElement>();
   const passwordRef = React.createRef<HTMLInputElement>();
   const loginBtnRef = React.createRef<HTMLButtonElement>();
   const [modalOpen, setModalOpen] = React.useState(false);
+  const [pwdVisible, setpwdVisible] = React.useState(false);
 
   function rfidHandler() {
     if (!usernameRef.current?.value)
@@ -48,12 +50,6 @@ const Login = () => {
 
     });
   };
-  const togglePasswordVisibility = (ref: React.RefObject<HTMLInputElement>) => {
-    const input = ref.current;
-    if (input) {
-      input.type = input.type === 'password' ? 'text' : 'password';
-    }
-  };
 
   // DEV Mode does not require credentials
   useEffect(() => {
@@ -84,7 +80,7 @@ const Login = () => {
               <div className="mb-6 relative ">
                 <label htmlFor="password" className="block text-gray-800 text-sm font-bold mb-2">Password:</label>
                 <input
-                  type={passwordRef.current?.type || 'password'}
+                  type={pwdVisible ? 'text' : 'password'}
                   id="password"
                   ref={passwordRef}
                   className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 bg-yellow-100 leading-tight focus:outline-none focus:shadow-outline"
@@ -93,9 +89,9 @@ const Login = () => {
                 <button
                   type="button"
                   className="absolute right-0 transform -translate-y-1/5 pr-2"
-                  onClick={() => togglePasswordVisibility(passwordRef)}
+                  onClick={() => setpwdVisible(!pwdVisible)}
                 >
-                  <img src='/icons/FishBowl.svg' alt={passwordRef.current?.type === 'password' ? 'Hide' : 'Show'} className="h-10 w-10" />
+                  <img src={pwdVisible ?  '/icons/pwdShow.png' : '/icons/pwdHide.png'} alt={pwdVisible ? 'Hide' : 'Show'} className="h-10 w-10" />
                 </button>
                 <a href="#" onClick={() => { setModalOpen(true) }} className="text-blue-600 hover:text-blue-800 text-sm font-bold mt-4">Forgot Password?</a>
               </div>
@@ -103,7 +99,7 @@ const Login = () => {
                 <button type="submit" ref={loginBtnRef} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mt-2">
                   Login
                 </button>
-                <a className="mt-4 text-blue-500 font-semibold  hover:text-blue-700 underline" href="/signup">New? Join the tank!</a>
+                <Link className="mt-4 text-blue-500 font-semibold  hover:text-blue-700 underline" href="/signup">New? Join the tank!</Link>
               </div>
             </form>
           </div>
