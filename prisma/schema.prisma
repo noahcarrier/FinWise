@@ -30,6 +30,6 @@ model lessonQuestion {
   question_id Int    @id @default(autoincrement())
   question    String
   answer      String
-  attempt     Boolean
+  attempt     Boolean @default(false)
   lesson_id   lesson @relation(fields: [question_id], references: [lesson_id])
 }
