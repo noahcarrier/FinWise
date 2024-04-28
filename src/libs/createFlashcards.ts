@@ -43,8 +43,6 @@ export const createLesson = async (data: lessonDataReq) => {
           },
         });
       }
-      const response = await axios.post('/api/publishLesson', lesson);
-      console.log(response.data);
       return lesson;
     });
 
