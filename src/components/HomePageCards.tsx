@@ -16,6 +16,7 @@ export default function HomePageCards() {
 
 
       <div className="mx-9 mb-12 flex flex-col  rounded-lg bg-yellow-300 text-surface text-black ">
+      <div style={{ background: 'radial-gradient(circle, #FDE68A, #F59E0B)' }} className="rounded-lg z-10">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="p-5">
           <path d="M11.7 2.805a.75.75 0 0 1 .6 0A60.65 60.65 0 0 1 22.83 8.72a.75.75 0 0 1-.231 1.337 49.948 49.948 0 0 0-9.902 3.912l-.003.002c-.114.06-.227.119-.34.18a.75.75 0 0 1-.707 0A50.88 50.88 0 0 0 7.5 12.173v-.224c0-.131.067-.248.172-.311a54.615 54.615 0 0 1 4.653-2.52.75.75 0 0 0-.65-1.352 56.123 56.123 0 0 0-4.78 2.589 1.858 1.858 0 0 0-.859 1.228 49.803 49.803 0 0 0-4.634-1.527.75.75 0 0 1-.231-1.337A60.653 60.653 0 0 1 11.7 2.805Z" />
           <path d="M13.06 15.473a48.45 48.45 0 0 1 7.666-3.282c.134 1.414.22 2.843.255 4.284a.75.75 0 0 1-.46.711 47.87 47.87 0 0 0-8.105 4.342.75.75 0 0 1-.832 0 47.87 47.87 0 0 0-8.104-4.342.75.75 0 0 1-.461-.71c.035-1.442.121-2.87.255-4.286.921.304 1.83.634 2.726.99v1.27a1.5 1.5 0 0 0-.14 2.508c-.09.38-.222.753-.397 1.11.452.213.901.434 1.346.66a6.727 6.727 0 0 0 .551-1.607 1.5 1.5 0 0 0 .14-2.67v-.645a48.549 48.549 0 0 1 3.44 1.667 2.25 2.25 0 0 0 2.12 0Z" />
@@ -27,8 +28,10 @@ export default function HomePageCards() {
 
         </div>
       </div>
+      </div>
 
       <div className="mx-9 mb-12 flex flex-col  rounded-lg bg-yellow-300 text-surface text-black ">
+      <div style={{ background: 'radial-gradient(circle, #FDE68A, #F59E0B)' }} className="rounded-lg z-10">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" className="p-5">
           <path d="M448 256A192 192 0 1 0 64 256a192 192 0 1 0 384 0zM0 256a256 256 0 1 1 512 0A256 256 0 1 1 0 256zm256 80a80 80 0 1 0 0-160 80 80 0 1 0 0 160zm0-224a144 144 0 1 1 0 288 144 144 0 1 1 0-288zM224 256a32 32 0 1 1 64 0 32 32 0 1 1 -64 0z" />
         </svg>
@@ -40,8 +43,10 @@ export default function HomePageCards() {
             </p> */}
         </div>
       </div>
+      </div>
 
       <div className="mx-9 mb-12 flex flex-col  rounded-lg bg-yellow-300 text-surface text-black ">
+      <div style={{ background: 'radial-gradient(circle, #FDE68A, #F59E0B)' }} className="rounded-lg z-10">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="p-5">
           <path fillRule="evenodd" d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25ZM12.75 6a.75.75 0 0 0-1.5 0v6c0 .414.336.75.75.75h4.5a.75.75 0 0 0 0-1.5h-3.75V6Z" clipRule="evenodd" />
         </svg>
@@ -55,7 +60,7 @@ export default function HomePageCards() {
             </p> */}
         </div>
       </div>
-
+      </div>      
     </div>
 
     // <div className="flex justify-between mt-8" id="lesson-prev-boxes">
