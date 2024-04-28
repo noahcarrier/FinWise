@@ -98,7 +98,7 @@ const Signup = () => {
     <div className="flex flex-col bg-gradient-to-b from-cyan-500 to-blue-700 min-h-screen">
       <NavbarNoButtons isAuthed={false}/>
       <div className="flex justify-center items-center flex-1">
-      <div className="w-full max-w-xl bg-yellow-300 rounded-lg drop-shadow-lg" style={{ background: 'radial-gradient(circle, #FDE68A, #FFA100)' }}>
+      <div className="w-full max-w-xl bg-yellow-300 rounded-lg drop-shadow-lg" style={{ background: 'radial-gradient(circle, #FFEB44, #FFAE22)' }}>
           <form onSubmit={handleSubmit} className="p-8">
             <h1 className="text-center text-black font-bold text-3xl mb-6">Register</h1>
             <div className="mb-4">
