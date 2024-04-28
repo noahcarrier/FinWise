@@ -3,8 +3,9 @@ import Swal from 'sweetalert2';
 import Navbar from '../components/Navbar';
 import "../app/globals.css";
 import { NextPageContext } from 'next';
+import ReactDOM from 'react-dom';
 import { getCacheFromPage } from '@/libs/userManager';
-
+import LoadingScreen from '../components/LoadingScreen';
 
 
 const Signup = () => {
@@ -18,26 +19,27 @@ const Signup = () => {
   const regBtnRef = useRef<HTMLButtonElement>(null);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault(); // this prevents the page from reloading after submitting the form
-    // Check passwords match
+    e.preventDefault();
     if (password !== confirmPassword) {
       return Swal.fire('Form Validation', 'Passwords do not match', 'error');
     }
-    // Validate password security (Just 8 character and some number for now)
     if (password.length < 8 || !/\d/.test(password)) {
       return Swal.fire('Form Validation', 'Password must be at least 8 characters long and contain at least one number', 'error');
     }
-    //loading super duper cool popup
+    
     Swal.fire({
       title: 'Registering...',
-      html: 'Please wait...',
+      html: '<div id="loading-screen-container"></div>',
       allowOutsideClick: false,
       willOpen: () => {
-        Swal.showLoading();
+        ReactDOM.render(<LoadingScreen />, document.getElementById('loading-screen-container'));
+      },
+      willClose: () => {
+        ReactDOM.unmountComponentAtNode(document.getElementById('loading-screen-container')!);
       }
     });
 
-    regBtnRef.current?.setAttribute('disabled', 'true'); //disable button so they can't activate button again
+    regBtnRef.current?.setAttribute('disabled', 'true');
 
     try {
       const res = await fetch('/auth/register', {
@@ -63,15 +65,16 @@ const Signup = () => {
       Swal.fire('Error', message, 'error');
     } finally {
       Swal.close(); 
-      regBtnRef.current?.removeAttribute('disabled'); //reactuvate button
+      regBtnRef.current?.removeAttribute('disabled');
     }
   }
-    const togglePasswordVisibility = (ref: React.RefObject<HTMLInputElement>) => {
-      const input = ref.current;
-      if (input) {
-        input.type = input.type === 'password' ? 'text' : 'password';
-      }
-    };
+  
+  const togglePasswordVisibility = (ref: React.RefObject<HTMLInputElement>) => {
+    const input = ref.current;
+    if (input) {
+      input.type = input.type === 'password' ? 'text' : 'password';
+    }
+  };
     
   
   return (
@@ -153,7 +156,7 @@ const Signup = () => {
         </div>
       </div>
     </div>
-);
+  );
 };
 
 export default Signup;

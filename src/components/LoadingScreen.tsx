@@ -2,7 +2,7 @@ import React from 'react';
 
 const LoadingScreen: React.FC = () => {
   return (
-    <div className="bg-gray-900 h-screen flex justify-center items-center">
+    <div className="bg-gray-900 h-screen flex justify-center items-center relative">
       <style jsx global>{`
         .bowl {
             position: absolute;
@@ -11,11 +11,11 @@ const LoadingScreen: React.FC = () => {
             transform: translate(-50%, -50%);
             margin: 0;
             padding: 0;
-            width:300px;
+            width: 300px;
             height: 300px;
             background: rgba(255,255,255,.1);
             border-radius: 50%;
-            border:4px solid #fff;
+            border: 4px solid #fff;
             transform-origin: bottom center;
             animation: animateBowl 8s linear infinite;
         }
@@ -109,10 +109,10 @@ const LoadingScreen: React.FC = () => {
             }
           }
       `}</style>
-
+        <div>
       <div className="bowl">
-        <div className="water"> 
-        </div>
+        <div className="water"></div>
+      </div>
       </div>
     </div>
   );
