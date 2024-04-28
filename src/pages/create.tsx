@@ -15,7 +15,7 @@ export default function Create() {
             </div>
             <div className="flex flex-col items-center mt-6">
                 <Link href="/create-flashcards" className="bg-yellow-300 hover:bg-yellow-200 rounded-lg shadow-lg p-6">
-                    <img src="icons/flashcards.png" className="w-full mb-" title="Flashcards Icon" />
+                    <img src="icons/flashcards.png" className="w-full mb-" title="Flashcards Icon" alt="Flashcard Icon"/>
                     <h2 className="text-black m-4 text-3xl text-center font-bold mb-4">Flashcards</h2>
                 </Link>
             </div>

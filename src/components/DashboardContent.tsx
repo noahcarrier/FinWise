@@ -78,7 +78,7 @@ export default function DashboardContent() {
                   <Dialog.Title as="h3" className="text-4xl font-bold leading-6 text-black text-center">Create StudySet</Dialog.Title>
                   <div className="flex flex-col items-center mt-6">
                     <Link href="/create-flashcards" className="bg-yellow-300 hover:bg-yellow-200 rounded-lg shadow-lg p-6">
-                      <img src="icons/flashcards.png" className="w-full mb-" title="Flashcards Icon" />
+                      <img src="icons/flashcards.png" className="w-full mb-" title="Flashcards Icon" alt="Fashcard Icon" />
                       <h2 className="text-black m-4 text-3xl text-center font-bold mb-4">Flashcards</h2>
                     </Link>
                   </div>
