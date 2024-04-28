@@ -12,6 +12,7 @@ const Login = () => {
   const passwordRef = React.createRef<HTMLInputElement>();
   const loginBtnRef = React.createRef<HTMLButtonElement>();
   const [modalOpen, setModalOpen] = React.useState(false);
+  const [pwdVisible, setpwdVisible] = React.useState(false);
 
   function rfidHandler() {
     if (!usernameRef.current?.value)
@@ -48,12 +49,6 @@ const Login = () => {
 
     });
   };
-  const togglePasswordVisibility = (ref: React.RefObject<HTMLInputElement>) => {
-    const input = ref.current;
-    if (input) {
-      input.type = input.type === 'password' ? 'text' : 'password';
-    }
-  };
 
   // DEV Mode does not require credentials
   useEffect(() => {
@@ -84,7 +79,7 @@ const Login = () => {
               <div className="mb-6 relative ">
                 <label htmlFor="password" className="block text-gray-800 text-sm font-bold mb-2">Password:</label>
                 <input
-                  type={passwordRef.current?.type || 'password'}
+                  type={pwdVisible ? 'text' : 'password'}
                   id="password"
                   ref={passwordRef}
                   className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 bg-yellow-100 leading-tight focus:outline-none focus:shadow-outline"
@@ -93,9 +88,9 @@ const Login = () => {
                 <button
                   type="button"
                   className="absolute right-0 transform -translate-y-1/5 pr-2"
-                  onClick={() => togglePasswordVisibility(passwordRef)}
+                  onClick={() => setpwdVisible(!pwdVisible)}
                 >
-                  <img src='/icons/FishBowl.svg' alt={passwordRef.current?.type === 'password' ? 'Hide' : 'Show'} className="h-10 w-10" />
+                  <img src={pwdVisible ?  '/icons/pwdShow.png' : '/icons/pwdHide.png'} alt={pwdVisible ? 'Hide' : 'Show'} className="h-10 w-10" />
                 </button>
                 <a href="#" onClick={() => { setModalOpen(true) }} className="text-blue-600 hover:text-blue-800 text-sm font-bold mt-4">Forgot Password?</a>
               </div>
