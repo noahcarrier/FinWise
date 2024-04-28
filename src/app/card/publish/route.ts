@@ -9,6 +9,15 @@ export async function POST(request: Request) {
     return new Response('Auth Required', {status: 402});
 
   const reqData: lessonData = await request.json();
+
+  // Validate general input
+  if(reqData.title.trim() === '' || reqData.questions.length === 0)
+    return new Response('Missing title/cards', {status: 400});
+  
+  // Validate individual questions/answers
+  for(const question of reqData.questions)
+    if(question.question.trim() === '' || question.answer.trim() === '')
+      return new Response('Invalid input from the cards', {status: 400});
   
   const res = await createLesson({
     title: reqData.title,
