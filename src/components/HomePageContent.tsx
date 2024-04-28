@@ -42,7 +42,7 @@ export default function HomePageContent() {
         </div>
       </div>
       <div className="h-20 flex justify-center items-center" id="learning-mode-cont">
-        <div className="bg-yellow-300 text-black p-4 w-3/5 rounded-3xl" id="learning-mode-bar">
+        <div className="bg-gradient-to-b from-yellow-100 to-yellow-500  text-black font-bold p-4 w-3/5 rounded-3xl" id="learning-mode-bar">
           {/* list of learning modes in a horizontal menu bar */}
           <div>
             <ul className="flex justify-evenly items-center space-x-8">
