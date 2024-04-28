@@ -15,7 +15,7 @@ CREATE TABLE lesson (
   id SERIAL PRIMARY KEY,
   user_id INT NOT NULL REFERENCES users(id),
   title TEXT NOT NULL,
-  created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
 /* LessonQuestion Table */
@@ -24,5 +24,5 @@ CREATE TABLE lessonQuestion (
   lesson_id INT NOT NULL REFERENCES lesson(id),
   question TEXT NOT NULL,
   answer TEXT NOT NULL,
-  attempt BOOLEAN NOT NULL DEFAULT FALSE,
+  attempt BOOLEAN NOT NULL DEFAULT FALSE
 );
