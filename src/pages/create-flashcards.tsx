@@ -59,7 +59,6 @@ export default class CreateFlashcards extends React.Component<any, state> {
             return;
         }
 
-        const card = this.createCard(question.value, answer.value);
         this.setState({ questions: [...this.state.questions, {question: question.value, answer: answer.value}] });
 
         question.value = '';
