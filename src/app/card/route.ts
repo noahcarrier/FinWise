@@ -1,4 +1,4 @@
-import {createLesson, lessonData} from '@/libs/createFlashcards';
+import {createLesson, getLessonsById, lessonData} from '@/libs/createFlashcards';
 import { getUserFromCache } from '@/libs/userManager';
 import { cookies } from 'next/headers';
 
@@ -52,39 +52,4 @@ export async function GET(request: Request) {
     return new Response('Internal Server Error', {status: 500})
   }
 
-  
 }
-
-export async function getLessonsById(userId: number) {
-  try {
-    const lessons = await prisma?.lesson.findMany({
-      where: {
-        user_id: userId,
-      }
-    });
-    return lessons;
-  }
-  catch (error) {
-    console.error("Error fetching lessons:", error);
-    return null;
-  }
-}
-
-/*
-export const getLessonById = async (lessonId: number) => {
-  try {
-    // Use Prisma to fetch the lesson based on its ID
-    const lesson = await prisma.lesson.findUnique({
-      where: {
-        id: lessonId,
-      },
-      include: {
-        lessonquestion: true, // Include associated questions with the lesson
-      },
-    });
-    return lesson;
-  } catch (error) {
-    console.error(error);
-    return null; // Return null if there's an error
-  }
-};*/

@@ -1,5 +1,5 @@
 import { PrismaClient } from '@prisma/client';
-import {prisma} from './db';
+import {prisma, redis, redisPrefix} from './db';
 import { userProfile_T } from './userManager';
 import axios from 'axios';
 
@@ -14,6 +14,8 @@ interface lessonDataReq extends lessonData {
 
 export const createLesson = async (data: lessonDataReq) => {
   try {
+    // Clear lesson cache if exists
+    await redis.del(`${redisPrefix}LESSONS:${data.userIdentity.id}`);
 
     return await prisma.$transaction(async (tx) => {
       // Create an empty lesson
@@ -68,3 +70,57 @@ export const deleteFlashcard = async (flashcardId: number) => {
     },
   });
 };
+
+type lessonInfo = {
+  id: number;
+  title: string;
+  created_at: Date;
+}
+
+export async function getLessonsById(userId: number): Promise<lessonInfo[] | undefined> {
+  try {
+    const cacheInfo = JSON.parse(await redis.get(`${redisPrefix}LESSONS:${userId}`) ?? "[]") as lessonInfo[];
+    if(cacheInfo.length > 0)
+      return cacheInfo;
+    
+    // No info found in cache, pull from DB
+    const lessons = await prisma?.lesson.findMany({
+      where: {
+        user_id: userId,
+      }
+    });
+    const formatData = lessons.map(lesson=> {
+      return {
+        id: lesson.id,
+        title: lesson.title,
+        created_at: lesson.created_at,
+      }
+    });
+    await redis.set(`${redisPrefix}LESSONS:${userId}`, JSON.stringify(formatData));
+    return formatData;
+  }
+
+  catch (error) {
+    console.error("Error fetching lessons:", error);
+    return;
+  }
+}
+
+/*
+export const getLessonById = async (lessonId: number) => {
+  try {
+    // Use Prisma to fetch the lesson based on its ID
+    const lesson = await prisma.lesson.findUnique({
+      where: {
+        id: lessonId,
+      },
+      include: {
+        lessonquestion: true, // Include associated questions with the lesson
+      },
+    });
+    return lesson;
+  } catch (error) {
+    console.error(error);
+    return null; // Return null if there's an error
+  }
+};*/
