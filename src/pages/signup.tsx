@@ -51,8 +51,6 @@ const Signup = () => {
       }
     });
     
-  
-
     regBtnRef.current?.setAttribute('disabled', 'true');
 
     try {
