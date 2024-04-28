@@ -4,6 +4,7 @@ import Navbar from '../components/Navbar';
 import "../app/globals.css";
 import { NextPageContext } from 'next';
 import { getCacheFromPage } from '@/libs/userManager';
+import Link from 'next/link';
 
 
 
@@ -13,8 +14,6 @@ const Signup = () => {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
 
-  const passwordRef = useRef<HTMLInputElement>(null);
-  const confirmPasswordRef = useRef<HTMLInputElement>(null);
   const regBtnRef = useRef<HTMLButtonElement>(null);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -106,48 +105,32 @@ const Signup = () => {
             <div className="mb-4 relative">
               <label htmlFor="password" className="block text-gray-800 text-sm font-bold mb-2">Password:</label>
               <input
-                type={passwordRef.current?.type || 'password'}
+                type="password"
                 id="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                ref={passwordRef}
                 className="shadow appearance-none border rounded w-full bg-yellow-100 py-2 px-3 text-gray-800 leading-tight focus:outline-none focus:shadow-outline"
                 required
               />
-              <button
-                type="button"
-                className="absolute right-0 transform -translate-y-1/5 pr-2"
-                onClick={() => togglePasswordVisibility(passwordRef)}
-              >
-                <img src='/icons/FishBowl.svg' alt={passwordRef.current?.type === 'password' ? 'Hide' : 'Show'} className="h-10 w-10"/>
-              </button>
             </div>
 
             <div className="mb-4 relative">
               <label htmlFor="confirmPassword" className="block text-gray-800 text-sm font-bold mb-2">Confirm Password:</label>
               <input
-                type={confirmPasswordRef.current?.type || 'password'}
+                type="password"
                 id="confirmPassword"
                 value={confirmPassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}
-                ref={confirmPasswordRef}
                 className="shadow appearance-none border rounded w-full bg-yellow-100 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                 required
               />
-              <button
-                type="button"
-                className="absolute right-0 transform -translate-y-1/5 pr-2"
-                onClick={() => togglePasswordVisibility(confirmPasswordRef)}
-              >
-                <img src='/icons/FishBowl.svg' alt={confirmPasswordRef.current?.type === 'password' ? 'Hide' : 'Show'} className="h-10 w-10"/>
-              </button>
             </div>
 
             <div className="flex items-center justify-center flex-col">
               <button type="submit" ref={regBtnRef} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mt-2">
                 Register
               </button>
-              <a className="mt-4 text-blue-500 font-semibold hover:text-blue-700 underline" href="/login">Come here often? Log In!</a>
+              <Link className="mt-4 text-blue-500 font-semibold hover:text-blue-700 underline" href="/login">Come here often? Log In!</Link>
             </div>
           </form>
         </div>
