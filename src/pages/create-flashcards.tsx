@@ -10,12 +10,12 @@ import Link from 'next/link';
 
 type state = {
     questions: {question: string; answer: string;}[];
-    title: string;
 }
 var cardNum = 0;
-export default class CreateFlashcards extends React.Component<any, state> {
+export default class CreateFlashcards extends React.Component<any, any> {
     questionInput = React.createRef<HTMLInputElement>();
     answerInput = React.createRef<HTMLInputElement>();
+    titleInput = React.createRef<HTMLInputElement>();
     cardBtn = React.createRef<HTMLButtonElement>();
     pubBtn = React.createRef<HTMLButtonElement>();
 
@@ -44,9 +44,10 @@ export default class CreateFlashcards extends React.Component<any, state> {
 
         const question = this.questionInput.current;
         const answer = this.answerInput.current;
+        const curTitle = this.titleInput;
 
-        if (!question || !answer || question.value.trim() === '' || answer.value.trim() === '') {
-            toast.error("Please enter both a question and an answer.", {
+        if (!question || !answer || !curTitle || question.value.trim() === '' || answer.value.trim() === '' || curTitle.current?.value.trim() === '') {
+            toast.error("Please enter a question, answer, and title.", {
                 position: "bottom-left",
                 autoClose: 5000,
                 hideProgressBar: true,
@@ -60,20 +61,31 @@ export default class CreateFlashcards extends React.Component<any, state> {
             return;
         }
 
-        this.setState({ questions: [...this.state.questions, {question: question.value, answer: answer.value}] });
-
+        this.setState({ 
+            questions: [...this.state.questions, {question: question.value, answer: answer.value}],
+            title: curTitle.current?.value
+        });
+        // test inputs
+        console.log("Current title:\n", curTitle.current?.value + "\nCurrent question:\n", question.value + "\nCurrent answer:\n", answer.value);
         question.value = '';
         answer.value = '';
     }
  
     publishBtn = async () => {
         try {
+            const titleobj = this.titleInput.current?.value;
+            if (!titleobj || titleobj.trim() === '') {
+                alert("EMPTY TITLE!!!"); // Replace it with swal l8er
+            }
             const res = await fetch('/card/publish', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({ title: this.state.title, questions: this.state.questions })
+                body: JSON.stringify({ 
+                    title: this.state.title,
+                    questions: this.state.questions 
+                })
             });
 
             if (!res.ok) {
@@ -145,7 +157,7 @@ export default class CreateFlashcards extends React.Component<any, state> {
 
                     {/* create lesson title */}
                     <div className = "flex justify-center m-6">
-                        <input placeholder="Enter a lesson title" style = {{width :'30%'}} className = "rounded-lg text-center text-black bg-yellow-100 pl-12 pr-12 pt-2 pb-2"></input>
+                        <input ref = {this.titleInput} placeholder="Enter a lesson title" style = {{width :'30%'}} className = "rounded-lg text-center text-black bg-yellow-100 pl-12 pr-12 pt-2 pb-2"></input>
                     </div>
 
                     {/* question and answer input */}
@@ -165,8 +177,8 @@ export default class CreateFlashcards extends React.Component<any, state> {
                     </div>
                     {/* div for cards to be inserted into */}
                     <div id="createdCards" style={{display: "grid", gridTemplateColumns: "repeat(4, minmax(250px, 1fr))", gap: "0.5rem"}}>
-                        {this.state.questions.map((card, index) => 
-                            this.createCard(card.question, card.answer, index)  // Pass index to createCard
+                        {this.state.questions.map((card: { question: string; answer: string; }, number: number) => 
+                            this.createCard(card.question, card.answer, number)  // Pass number to createCard
                         )}
                     </div>
     
