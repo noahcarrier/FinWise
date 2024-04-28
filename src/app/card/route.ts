@@ -51,5 +51,5 @@ export async function GET(request: Request) {
     console.error("Error fetching lessons:", error);
     return new Response('Internal Server Error', {status: 500})
   }
-
 }
+

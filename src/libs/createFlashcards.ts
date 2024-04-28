@@ -106,6 +106,23 @@ export async function getLessonsById(userId: number): Promise<lessonInfo[] | und
   }
 }
 
+export const getSpecificLessonById = async (lessonId: number) => {
+  try {
+    const lesson = await prisma?.lesson.findUnique({
+      where: {
+        id: lessonId,
+      },
+      include: {
+        lessonquestion: true, 
+      },
+    });
+    return lesson;
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
+};
+
 /*
 export const getLessonById = async (lessonId: number) => {
   try {
