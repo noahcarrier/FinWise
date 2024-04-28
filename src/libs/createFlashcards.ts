@@ -20,7 +20,7 @@ export const createLesson = async (data: lessonDataReq) => {
       const lesson = await tx.lesson.create({
         data: {
           title: data.title,
-          id: {
+          user_id: {
             connect: {
               id: data.userIdentity.id,
             },
