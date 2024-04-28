@@ -1,14 +1,18 @@
 import { PrismaClient } from '@prisma/client';
 import {prisma} from './db';
 import { userProfile_T } from './userManager';
+import axios from 'axios';
 
-type lessonData = {
+export type lessonData = {
   title: string;
-  userIdentity: userProfile_T;
   questions: { question: string; answer: string; }[];
 }
 
-export const createLesson = async (data: lessonData) => {
+interface lessonDataReq extends lessonData {
+  userIdentity: userProfile_T;
+}
+
+export const createLesson = async (data: lessonDataReq) => {
   try {
 
     return await prisma.$transaction(async (tx) => {
@@ -16,25 +20,18 @@ export const createLesson = async (data: lessonData) => {
       const lesson = await tx.lesson.create({
         data: {
           title: data.title,
-          user_id: {
-            connect: {
-              id: data.userIdentity.id,
-            },
-          },
+          user_id: data.userIdentity.id
         },
       });
 
       // Create questions
-      for(const question of data.questions) {
-        await tx.lessonQuestion.create({
+      for (const question of data.questions) {
+        await tx.lessonquestion.create({
           data: {
             question: question.question,
             answer: question.answer,
-            lesson_id: {
-              connect: {
-                lesson_id: lesson.lesson_id,
-              },
-            },
+            attempt: false,
+            lesson_id: lesson.id,
           },
         });
       }
@@ -54,23 +51,20 @@ type addFlashcardData = {
 }
 
 export const addFlashcard = async (data: addFlashcardData) => {
-  return await prisma.lessonQuestion.create({
+  return await prisma.lessonquestion.create({
     data: {
       question: data.question,
       answer: data.answer,
-      lesson_id: {
-        connect: {
-          lesson_id: data.lessonId,
-        },
-      },
+      attempt: false,
+      lesson_id: data.lessonId,
     },
   });
 };
 
 export const deleteFlashcard = async (flashcardId: number) => {
-  return await prisma.lessonQuestion.delete({
+  return await prisma.lessonquestion.delete({
     where: {
-      question_id: flashcardId,
+      id: flashcardId,
     },
   });
 };

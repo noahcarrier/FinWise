@@ -19,7 +19,7 @@ const headerStyle = {
 
 function generateHeader() {
     return (<a href={`${process.env.FRONTEND_URL}/`} style={headerStyle.logoDiv}>
-    <img width="72" style={{marginRight: "10px"}} src={`${process.env.FRONTEND_URL}/icons/Fin.svg`}/>
+    <img width="72" style={{marginRight: "10px"}} src={`${process.env.FRONTEND_URL}/icons/Fin.svg`} alt="Service Icon"/>
     <span style={headerStyle.logoText}>FinWise</span>
   </a>)
 }
