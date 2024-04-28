@@ -14,7 +14,7 @@ type state = {
 
 export default class CreateFlashcards extends React.Component<any, state> {
     questionInput = React.createRef<HTMLInputElement>();
-    answerInput = React.createRef<HTMLInputElement>();3
+    answerInput = React.createRef<HTMLInputElement>();
     publishBtn = React.createRef<HTMLButtonElement>();
 
 
