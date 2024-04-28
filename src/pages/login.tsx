@@ -68,7 +68,7 @@ const Login = () => {
       <div className="flex flex-col bg-gradient-to-b from-cyan-500 to-blue-700 min-h-screen">
         <NavbarNoButtons isAuthed={false} />
         <div className="flex justify-center items-center flex-1">
-          <div className="w-full max-w-xl bg-yellow-300 rounded-lg drop-shadow-lg">
+        <div className="w-full max-w-xl bg-yellow-300 rounded-lg drop-shadow-lg" style={{ background: 'radial-gradient(circle, #FFD32D, #FFAE22)' }}>
             <form onSubmit={handleSubmit} className="p-12 mb-2 ">
               <h1 className="text-center text-gray-800 font-bold text-3xl mb-9">Login</h1>
               <div className="mb-4 ">
