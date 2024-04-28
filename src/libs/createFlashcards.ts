@@ -29,11 +29,12 @@ export const createLesson = async (data: lessonDataReq) => {
       });
 
       // Create questions
-      for(const question of data.questions) {
+      for (const question of data.questions) {
         await tx.lessonQuestion.create({
           data: {
             question: question.question,
             answer: question.answer,
+            attempt: false,
             lesson_id: {
               connect: {
                 lesson_id: lesson.lesson_id,
@@ -64,6 +65,7 @@ export const addFlashcard = async (data: addFlashcardData) => {
     data: {
       question: data.question,
       answer: data.answer,
+      attempt: false,
       lesson_id: {
         connect: {
           lesson_id: data.lessonId,

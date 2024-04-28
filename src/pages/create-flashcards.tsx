@@ -1,7 +1,6 @@
 import React from 'react';
 import Navbar from '../components/Navbar';
 import "../app/globals.css";
-import axios from 'axios';
 import { getCacheFromPage } from '../libs/userManager';
 import { NextPageContext } from 'next';
 import { ToastContainer, toast } from 'react-toastify';
@@ -9,17 +8,17 @@ import 'react-toastify/dist/ReactToastify.css';
 import { Bounce } from 'react-toastify';
 import Link from 'next/link';
 
-
 type state = {
     questions: {question: string; answer: string;}[];
     title: string;
 }
-
+var cardNum = 0;
 export default class CreateFlashcards extends React.Component<any, state> {
     questionInput = React.createRef<HTMLInputElement>();
     answerInput = React.createRef<HTMLInputElement>();
     cardBtn = React.createRef<HTMLButtonElement>();
 
+    
 
     constructor(props: any) {
         super(props);
@@ -30,15 +29,18 @@ export default class CreateFlashcards extends React.Component<any, state> {
     }
 
     createCard = (question: string, answer: string) => {
+        cardNum++;
         return (
-            <div className="bg-yellow-300 rounded-lg p-4 mt-4 w-96 mx-auto" style={{maxWidth: "250px", minHeight: "150px"}}>
-                <h2 className="text-gray-800 text-2xl font-bold mb-2">{question}</h2>
-                <h2 className="text-gray-800 text-lg mt-2">{answer}</h2>
+            <div  className="bg-yellow-300 rounded-lg p-4 mt-4 w-96 mx-auto" style={{maxWidth: "250px", minHeight: "150px"}}>
+                <h2 id={`card-${cardNum}-question`} className= "question text-gray-800 text-2xl font-bold mb-2">{question}</h2>
+                <h2 id={`card-${cardNum}-answer`} className= "answer text-gray-800 text-lg mt-2">{answer}</h2>
             </div>
         )
+
     }
 
     addCard = () => {
+
         const question = this.questionInput.current;
         const answer = this.answerInput.current;
 
@@ -56,9 +58,6 @@ export default class CreateFlashcards extends React.Component<any, state> {
             });
             return;
         }
-
-        console.log("Question: " + question);
-        console.log("Answer: " + answer);
 
         const card = this.createCard(question.value, answer.value);
         this.setState({ questions: [...this.state.questions, {question: question.value, answer: answer.value}] });
@@ -92,6 +91,35 @@ export default class CreateFlashcards extends React.Component<any, state> {
                 addBtn.style.display = 'block';
     }
 
+    buildLesson = async () => {
+        // Get the lesson title from state
+        const lessonTitle = this.state.title.trim();
+    
+        // Validate lesson title
+        if (!lessonTitle) {
+            toast.error("Please enter a lesson title.", {
+                position: "bottom-left",
+                autoClose: 5000,
+                hideProgressBar: true,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "colored",
+                transition: Bounce,
+            });
+            return;
+        }
+    
+        // Create the lesson object using state data
+        const lessonData = {
+            title: lessonTitle,
+            lessonCard: this.state.questions,
+        };
+
+    }
+    
+    
     render() {
         return (
             <>
