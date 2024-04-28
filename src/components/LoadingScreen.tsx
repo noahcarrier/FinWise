@@ -2,7 +2,7 @@ import React from 'react';
 
 const LoadingScreen: React.FC = () => {
   return (
-    <div className="bg-gray-900 h-screen flex justify-center items-center relative">
+    <div className="bg-gray-900 h-[50vh] flex justify-center items-center relative">
       <style jsx global>{`
         .bowl {
             position: absolute;

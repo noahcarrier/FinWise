@@ -47,14 +47,14 @@ const Signup = () => {
       didOpen: () => {
         const modal = document.querySelector('.swal2-modal');
         if (modal) {
-          modal.style.height = '60%'; 
+          modal.style.height = '100%'; 
         }
       }
     });
     
   
 
-    regBtnRef.current?.setAttribute('disabled', 'true');
+    // regBtnRef.current?.setAttribute('disabled', 'true');
 
     try {
       const res = await fetch('/auth/register', {
@@ -79,8 +79,10 @@ const Signup = () => {
 
       Swal.fire('Error', message, 'error');
     } finally {
-      Swal.close(); 
-      regBtnRef.current?.removeAttribute('disabled');
+      // Swal.close(); 
+      // regBtnRef.current?.removeAttribute('disabled');
+      // console.log('test');
+      // regBtnRef.current?.setAttribute('disabled', 'false');
     }
   }
   
