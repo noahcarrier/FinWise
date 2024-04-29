@@ -77,7 +77,7 @@ export default class CreateFlashcards extends React.Component<any, any> {
             if (!titleobj || titleobj.trim() === '') {
                 alert("EMPTY TITLE!!!"); // Replace it with swal l8er
             }
-            const res = await fetch('/card/publish', {
+            const res = await fetch('/card/', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
