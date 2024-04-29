@@ -158,16 +158,16 @@ const Study = (props: props) => {
                 <h2 className="text-yellow-300  text-2xl font-bold mt-4" style={{margin: "20px 0 0 0"}}>Lesson: {props.lessonName}</h2>
                 <div className="flex">
                     <button onClick={()=>handleDiffQuestion(false)}>
-                        <img src="/icons/beforearrow.png" className="rounded-lg mt-8 mr-16" title="Cross Mark" style={{ width: '50px', height: '30px' }}/>
+                        <img src="/icons/beforearrow.png" className="rounded-lg mt-8 mr-16" title="Before" style={{ width: '50px', height: '30px' }}/>
                     </button>
                     <button onClick={()=>handleResultSubmit(true)}>
-                        <img src="/icons/checkmark.jpg" className="rounded-lg mt-8 mr-16" title="Cross Mark" style={{ width: '50px', height: '50px' }}/>
+                        <img src="/icons/checkmark.jpg" className="rounded-lg mt-8 mr-16" title="Check Mark" style={{ width: '50px', height: '50px' }}/>
                     </button>
                     <button onClick={()=>handleResultSubmit(false)}>
-                        <img src="/icons/crossmark.jpg" className="rounded-lg mt-8" title="Check Mark" style={{ width: '50px', height: '50px' }}/>
+                        <img src="/icons/crossmark.jpg" className="rounded-lg mt-8" title="Cross Mark" style={{ width: '50px', height: '50px' }}/>
                     </button>
                     <button onClick={()=>handleDiffQuestion(true)}>
-                        <img src="/icons/nextarrow.png" className="rounded-lg mt-8 ml-16" title="Cross Mark" style={{ width: '50px', height: '30px' }}/>
+                        <img src="/icons/nextarrow.png" className="rounded-lg mt-8 ml-16" title="Next" style={{ width: '50px', height: '30px' }}/>
                     </button>
                 </div>
                 <div className="text-2xl font-semibold mt-2">
