@@ -3,7 +3,12 @@ import { Fragment, useState } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
 import Link from "next/link";
 
-export default function DashboardContent() {
+export type userProps = {
+  userId: number 
+};
+
+export const DashboardContent = ({userId}: userProps) => {
+  console.log(userId);
   let [isCreateStudySetModalOpen, setIsCreateStudySetModalOpen] = useState(false);
 
   function openCreateStudySetModal() {
@@ -12,6 +17,16 @@ export default function DashboardContent() {
 
   function closeCreateStudySetModal() {
     setIsCreateStudySetModalOpen(false);
+  }
+
+  const fetchStudySets = async () => {
+
+    try {
+      // fetch('')
+    } catch (error) {
+
+    }
+
   }
 
   return (
