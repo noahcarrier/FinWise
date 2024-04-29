@@ -4,15 +4,21 @@ import { Dialog, Transition } from '@headlessui/react';
 import Link from "next/link";
 
 export type userProps = {
-  userId: number
+  lessonInfo: lessonInfo[] | undefined;
 };
 
-export const DashboardContent = ({ userId }: userProps) => {
+export type lessonInfo = {
+  id: number;
+  title: string;
+  created_at: Date;
+}
+
+export const DashboardContent = ({ lessonInfo }: userProps) => {
 
   useEffect(() => {
-    fetchStudySets();
-  }, [])
-
+    console.log(JSON.stringify(lessonInfo));
+  }, [lessonInfo]);
+  
   // console.log(userId);
   let [isCreateStudySetModalOpen, setIsCreateStudySetModalOpen] = useState(false);
 
@@ -22,28 +28,6 @@ export const DashboardContent = ({ userId }: userProps) => {
 
   function closeCreateStudySetModal() {
     setIsCreateStudySetModalOpen(false);
-  }
-
-  const fetchStudySets = async () => {
-
-    try {
-      console.log("FETCHING");
-      const response = await fetch(`/card/fetchLessons/`, {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json'
-        }
-      });
-      console.log("TEST");
-      console.log(response);
-
-      const data = await response.json();
-      console.log(data);
-
-    } catch (error) {
-
-    }
-
   }
 
   return (

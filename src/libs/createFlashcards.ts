@@ -84,7 +84,7 @@ export async function getLessonsById(userId: number): Promise<lessonInfo[] | und
       return cacheInfo;
     
     // No info found in cache, pull from DB
-    const lessons = await prisma?.lesson.findMany({
+    const lessons = await prisma.lesson.findMany({
       where: {
         user_id: userId,
       }
