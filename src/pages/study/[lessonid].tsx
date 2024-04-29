@@ -18,6 +18,18 @@ type props = {
     questions: lessonquestion[];
 }
 
+// Fisher-Yates Shuffle Algorithm
+function shuffle(arr: any[]) {
+    var i = arr.length, j, temp;
+    while(--i > 0){
+      j = Math.floor(Math.random()*(i+1));
+      temp = arr[j];
+      arr[j] = arr[i];
+      arr[i] = temp;
+    }
+  }
+
+
 export const getServerSideProps = async (context: GetServerSidePropsContext) => {
     /* USE THIS CODE TO TEST AUTHENTICATION (yes, just copy and paste this to page that needs authentication)*/
     const user = await getCacheFromPage(context);
@@ -56,7 +68,8 @@ export const getServerSideProps = async (context: GetServerSidePropsContext) => 
                 permanent: false,
             },
         };
-
+    
+        shuffle(lessonObj.lessonquestion);
     return {
         props: {
             lessonName: lessonObj.title,
@@ -85,8 +98,8 @@ const Study = (props: props) => {
             return;
         }
 
-        console.log("Before Arrow was pressed.");
-        if (currentQuestion > 0) {
+        if (!isNext && currentQuestion > 0) {
+            console.log("Before Arrow was pressed.");
             setCurrentQuestion(currentQuestion - 1);
             setSide(false);
         }
