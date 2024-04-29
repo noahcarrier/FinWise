@@ -155,7 +155,7 @@ const Study = (props: props) => {
                         </h2>
                     </div>
                 </button>    
-                
+                <h2 className="text-yellow-200 text-white text-2xl font-bold mt-4" style={{margin: "20px 0 0 0"}}>Lesson: {props.lessonName}</h2>
                 <div className="flex">
                     <button onClick={()=>handleDiffQuestion(false)}>
                         <img src="/icons/beforearrow.png" className="rounded-lg mt-8 mr-16" title="Cross Mark" style={{ width: '50px', height: '30px' }}/>
