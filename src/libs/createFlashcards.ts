@@ -141,3 +141,20 @@ export const getLessonById = async (lessonId: number) => {
     return null; // Return null if there's an error
   }
 };*/
+
+export const updateAttemptStatus = async (questionId: number, newAttemptStatus: boolean) => {
+  try {
+    const updatedQuestion = await prisma.lessonquestion.update({
+      where: {
+        id: questionId,
+      },
+      data: {
+        attempt: newAttemptStatus,
+      },
+    });
+    return updatedQuestion;
+  } catch (error) {
+    console.error(error);
+    return;
+  }
+};
