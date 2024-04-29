@@ -2,6 +2,7 @@ import SearchBar from "./SearchBar";
 import { Fragment, useState, useEffect } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
 import Link from "next/link";
+import { create } from "domain";
 
 export type userProps = {
   lessonInfo: lessonInfo[] | undefined;
@@ -30,6 +31,21 @@ export const DashboardContent = ({ lessonInfo }: userProps) => {
     setIsCreateStudySetModalOpen(false);
   }
 
+  function parseLessonCreationDate(created_at: Date) {
+    let now = new Date();
+    let createdTimeInMilli = new Date(created_at);
+    let difference = now.getTime() - createdTimeInMilli.getTime();
+
+    let differenceInDays = Math.round(difference / (1000 * 3600 * 24));
+
+    if(differenceInDays == 0) {
+      return "Today"
+    }
+    else {
+      return differenceInDays.toString() + " days ago";
+    }
+  }
+
   return (
     <>
 
@@ -56,8 +72,23 @@ export const DashboardContent = ({ lessonInfo }: userProps) => {
           <p className="ms-7 col-span-2 text-2xl font-bold self-center">Your mastery</p>
         </div>
         <div className="grid grid-cols-5 mt-3 gap-7 mx-[5rem] text-black ">
-          <div className="col-span-3 bg-yellow-300 shadow-[inset_0_2px_4px_0_rgba(0,0,0,0.3)] drop-shadow-lg rounded-3xl min-h-[60vh] ">
-            <p className="mx-5"></p>
+          <div className="overflow-y-scroll col-span-3 bg-yellow-300 shadow-[inset_0_2px_4px_0_rgba(0,0,0,0.3)] drop-shadow-lg rounded-3xl min-h-[60vh] ">
+            {lessonInfo?.map((lesson) => (
+              <>
+              <div className="flex relative justify-between rounded-xl bg-gradient-to-b from-yellow-200 to-yellow-400">
+                <div className="flex">
+                  <p className="mx-5 my-8 font-bold text-4xl">{lesson.title}</p> 
+                </div>
+                <Link href={`/study/${lesson.id}`} className="flex items-center float-end bg-gradient-to-b from-cyan-400 to-blue-500 mx-4 my-5 px-3 rounded-lg text-xl text-white py-auto">
+                  Study
+                </Link>
+                <p className="mb-2 mx-5 font-semibold absolute bottom-0">Created {parseLessonCreationDate(lesson.created_at)}</p>
+              </div>
+              </>
+            ))
+
+            }
+            {/* <p className="mx-5"></p> */}
           </div>
           <div className="col-span-2 bg-yellow-300 shadow-[inset_0_2px_4px_0_rgba(0,0,0,0.3)] drop-shadow-lg rounded-3xl ">
             <p className="mx-5"></p>

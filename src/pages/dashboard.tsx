@@ -16,14 +16,12 @@ let updateOutside: any;
 
 export default function Page(props: props) {
 
-// const [userId, setUserId] = useState(4);
 
   
   return (
     <main className="bg-gradient-to-b from-cyan-500 to-blue-700 min-h-screen">
       <Navbar isAuthed={true}/>
       <DashboardContent lessonInfo={props.lesson}/>
-      {/* // <p>Dashboard Page</p> */}
     </main>
   );
 }
