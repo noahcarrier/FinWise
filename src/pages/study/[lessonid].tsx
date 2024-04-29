@@ -113,7 +113,7 @@ const Study = (props: props) => {
         try {
             const questionid = props.questions[currentQuestion].id
             const fetchData = async () => {
-                const response = await fetch(`/card/question/${questionid}/`, { // Using template literals to inject the lessonId variable
+                const response = await fetch(`/card/question/${questionid}`, { // Using template literals to inject the lessonId variable
                 method: 'PATCH',
                 headers: {
                     'Content-Type': 'application/json'

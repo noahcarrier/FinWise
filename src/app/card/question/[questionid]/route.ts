@@ -14,7 +14,7 @@ export async function PATCH(request: Request, { params }: { params: { questionid
         if(Number.isNaN(idNum))
             return new Response('Invalid question ID', { status: 400 });
 
-        if(!body.attemptResult)
+        if(body.attemptResult === undefined || typeof body.attemptResult !== 'boolean')
           return new Response('Invalid attempt result', { status: 400 });
 
       const question = await updateAttemptStatus(idNum, body.attemptResult);
