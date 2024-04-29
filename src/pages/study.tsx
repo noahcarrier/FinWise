@@ -1,9 +1,11 @@
 import React, {useEffect, useState} from "react";
 import Navbar from "@/components/Navbar";
 import "../app/globals.css";
+import { getCacheFromPage } from "@/libs/userManager";
+import { NextPageContext } from "next";
 
 interface lessonquestion {
-    question_id: number;
+    id: number;
     question: string;
     answer: string;
     attempt: boolean;
@@ -19,11 +21,26 @@ interface Lesson {
     lessonquestion: lessonquestion[]; // Array of lesson questions
 }
 
+export const getServerSideProps = async (context: NextPageContext) => {
+    /* USE THIS CODE TO TEST AUTHENTICATION (yes, just copy and paste this to page that needs authentication)*/
+    const user = await getCacheFromPage(context);
+    if (!user) {
+        return {
+            redirect: {
+                destination: '/login',
+                permanent: false,
+            },
+        };
+    }
+
+    /* Return anything you want from database query from here out */
+    return {
+        props: {}
+    }
+}
 
 const Study = () => {
     const [lesson, setLesson] = useState<Lesson | null>(null);
-
-    const [questionNum, setQuestionNum] = useState(0);
 
     const [side, setSide] = useState(false);
 
@@ -46,7 +63,6 @@ const Study = () => {
             
             const lessonData = await response.json();
             setLesson(lessonData); // Parse the JSON response
-            setQuestionNum(lesson?.lessonquestion.length ?? 0);
             console.log('Received lesson data:', lessonData);
             // Do something with the lesson data
             };
@@ -75,6 +91,39 @@ const Study = () => {
     
     const handleCheckmarkSubmit = () => {
         console.log("Check Mark was pressed.");
+
+        console.log(lesson?.lessonquestion[currentQuestion].id);
+
+        try {
+            const questionid = lesson?.lessonquestion[currentQuestion].id
+            const fetchData = async () => {
+                const response = await fetch(`/card/question/${questionid}/`, { // Using template literals to inject the lessonId variable
+                method: 'PATCH',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    attemptResult: true
+                })
+            });
+            
+            console.log(response);
+
+            if (!response.ok) {
+                throw new Error('Failed to fetch lesson data');
+            }
+            
+            const lessonData = await response.json();
+            setLesson(lessonData); // Parse the JSON response
+            console.log('Received lesson data:', lessonData);
+            // Do something with the lesson data
+            };
+      
+            fetchData();
+        } catch (error) {
+          console.error('Error fetching lesson:', error);
+          // Show an error message or handle the error appropriately
+        }
     }
 
     const handleCrossmarkSubmit = () => {
