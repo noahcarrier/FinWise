@@ -40,6 +40,10 @@ export default function HomePageCards() {
         </svg>
         <div className="p-2 ">
           <h5 className="mb-2 text-2xl font-medium leading-tight text-center text-black">Strategy</h5>
+          {/* <p className="mb-4 text-base">
+                This is a longer card with supporting text below as a natural
+                lead-in to additional content.
+            </p> */}
         </div>
       </div>
 
@@ -50,6 +54,11 @@ export default function HomePageCards() {
 
         <div className="p-2">
           <h5 className="mb-2 text-2xl font-medium leading-tight text-center text-black">Sprints</h5>
+          {/* <p className="mb-4 text-base">
+                This is a longer card with supporting text below as a natural
+                lead-in to additional content. This content is a little bit
+                longer.
+            </p> */}
         </div>
       </div>
     </div>
