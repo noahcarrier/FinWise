@@ -93,6 +93,33 @@ export default class CreateFlashcards extends React.Component<any, any> {
             }
             const data = await res.json();
             console.log('Published successfully:', data);
+            // toastify success message
+            toast.success("Lesson successfully created", {
+                position: "bottom-left",
+                autoClose: 5000,
+                hideProgressBar: true,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "colored",
+                transition: Bounce,
+            });
+            // clear input fields
+            if (this.titleInput.current) {
+                this.titleInput.current.value = '';
+            }
+
+            // clear createdCards div
+            const createdCards = document.getElementById('createdCards');
+            if (createdCards) {
+                createdCards.innerHTML = '';
+            }
+            // hide publish button
+            if (this.pubBtn.current) {
+                this.pubBtn.current.style.display = 'none';
+            }
+            
         } catch (error) {
             console.error('Error publishing card:', error);
         }
