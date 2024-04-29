@@ -75,7 +75,7 @@ export const DashboardContent = ({ lessonInfo }: userProps) => {
           <div className="overflow-y-scroll col-span-3 bg-yellow-300 shadow-[inset_0_2px_4px_0_rgba(0,0,0,0.3)] drop-shadow-lg rounded-3xl min-h-[60vh] ">
             {lessonInfo.map((lesson) => (
               <>
-              <div className="flex relative justify-between rounded-xl bg-gradient-to-b from-yellow-200 to-yellow-500">
+              <div className="flex relative justify-between rounded-xl bg-gradient-to-b from-yellow-200 to-yellow-400">
                 <div className="flex">
                   <p className="mx-5 my-8 font-bold text-4xl">{lesson.title}</p> 
                 </div>

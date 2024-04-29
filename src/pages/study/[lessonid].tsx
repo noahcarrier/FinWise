@@ -145,17 +145,17 @@ const Study = (props: props) => {
         <main className="bg-gradient-to-b from-cyan-500 to-blue-700 min-h-screen">
             <Navbar isAuthed={true}/>
             <div className="flex flex-col items-center mt-6 ">
-                <h1 className="text-yellow-200 text-5xl font-bold">Study Flashcards</h1>
+                <h1 className="text-yellow-300 text-5xl font-bold">Study Flashcards</h1>
             </div>
             <div className="flex flex-col items-center mt-6">
                 <button onClick={handleSwitchSubmit}>
-                    <div className="bg-white rounded-lg shadow-lg p-6" style={{ width: '500px', height: '400px' }}>
+                    <div className="bg-yellow-300 rounded-lg shadow-lg p-6" style={{ width: '500px', height: '400px' }}>
                         <h2 className="text-black m-4 text-3xl text-center font-bold mb-4 ">
                             {side ? props.questions[currentQuestion].answer : props.questions[currentQuestion].question}
                         </h2>
                     </div>
                 </button>    
-                <h2 className="text-yellow-200 text-white text-2xl font-bold mt-4" style={{margin: "20px 0 0 0"}}>Lesson: {props.lessonName}</h2>
+                <h2 className="text-yellow-300  text-2xl font-bold mt-4" style={{margin: "20px 0 0 0"}}>Lesson: {props.lessonName}</h2>
                 <div className="flex">
                     <button onClick={()=>handleDiffQuestion(false)}>
                         <img src="/icons/beforearrow.png" className="rounded-lg mt-8 mr-16" title="Cross Mark" style={{ width: '50px', height: '30px' }}/>
@@ -169,6 +169,9 @@ const Study = (props: props) => {
                     <button onClick={()=>handleDiffQuestion(true)}>
                         <img src="/icons/nextarrow.png" className="rounded-lg mt-8 ml-16" title="Cross Mark" style={{ width: '50px', height: '30px' }}/>
                     </button>
+                </div>
+                <div className="text-2xl font-semibold mt-2">
+                    {currentQuestion+1}/{props.questions.length}
                 </div>
             </div>
         </main>
