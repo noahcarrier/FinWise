@@ -1,52 +1,63 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import Navbar from "@/components/Navbar";
 import "../app/globals.css";
 
-const lessonQuestions = [
-    {
-      question_id: 1,
-      question: "What is the capital of France?",
-      answer: "Paris",
-      attempt: false,
-      lesson_id: 1 // Assuming this refers to a lesson with ID 1
-    },
-    {
-      question_id: 2,
-      question: "Who wrote 'Romeo and Juliet'?",
-      answer: "William Shakespeare",
-      attempt: false,
-      lesson_id: 1
-    },
-    {
-      question_id: 3,
-      question: "What is the powerhouse of the cell?",
-      answer: "Mitochondria",
-      attempt: false,
-      lesson_id: 2 // Assuming this refers to a lesson with ID 2
-    },
-    {
-      question_id: 4,
-      question: "What is the chemical symbol for water?",
-      answer: "H2O",
-      attempt: false,
-      lesson_id: 2
-    },
-    {
-      question_id: 5,
-      question: "Who painted the Mona Lisa?",
-      answer: "Leonardo da Vinci",
-      attempt: false,
-      lesson_id: 3 // Assuming this refers to a lesson with ID 3
-    }
-  ];
-  
+interface lessonquestion {
+    question_id: number;
+    question: string;
+    answer: string;
+    attempt: boolean;
+    lesson_id: number;
+}
+
+// Define the type for lesson
+interface Lesson {
+    id: number;
+    user_id: number;
+    title: string;
+    created_at: string; // Adjust the type if necessary based on your backend
+    lessonquestion: lessonquestion[]; // Array of lesson questions
+}
+
 
 const Study = () => {
-    const questionNum = lessonQuestions.length;
+    const [lesson, setLesson] = useState<Lesson | null>(null);
+
+    const [questionNum, setQuestionNum] = useState(0);
 
     const [side, setSide] = useState(false);
 
     const [currentQuestion, setCurrentQuestion] = useState(0);
+
+    useEffect(() => {
+        try {
+            const lessonId = 3; // Example lessonId, replace with your actual variable value
+            const fetchData = async () => {
+                const response = await fetch(`/card/${lessonId}`, { // Using template literals to inject the lessonId variable
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+      
+            if (!response.ok) {
+                throw new Error('Failed to fetch lesson data');
+            }
+            
+            const lessonData = await response.json();
+            setLesson(lessonData); // Parse the JSON response
+            setQuestionNum(lesson?.lessonquestion.length ?? 0);
+            console.log('Received lesson data:', lessonData);
+            // Do something with the lesson data
+            };
+      
+            fetchData();
+        } catch (error) {
+          console.error('Error fetching lesson:', error);
+          // Show an error message or handle the error appropriately
+        }
+      }, []);
+         
     
     const handleSwitchSubmit = () => {
         console.log("Switch was pressed.");
@@ -56,8 +67,9 @@ const Study = () => {
     const handleBeforeSubmit = () => {
         console.log("Before Arrow was pressed.");
 
-        if(currentQuestion > 0){
+        if (lesson && lesson.lessonquestion && currentQuestion > 0) {
             setCurrentQuestion(currentQuestion - 1);
+            setSide(false);
         }
     }
     
@@ -72,8 +84,9 @@ const Study = () => {
     const handleNextSubmit = () => {
         console.log("After Arrow was pressed.");
 
-        if(currentQuestion < questionNum - 1){
+        if (lesson && lesson.lessonquestion && currentQuestion < lesson.lessonquestion.length - 1) {
             setCurrentQuestion(currentQuestion + 1);
+            setSide(false);
         }
     }
 
@@ -87,7 +100,7 @@ const Study = () => {
                 <button onClick={handleSwitchSubmit}>
                     <div className="bg-white rounded-lg shadow-lg p-6" style={{ width: '500px', height: '400px' }}>
                         <h2 className="text-black m-4 text-3xl text-center font-bold mb-4 ">
-                            {side ? lessonQuestions[currentQuestion].answer : lessonQuestions[currentQuestion].question}
+                            {side ? lesson?.lessonquestion[currentQuestion].answer : lesson?.lessonquestion[currentQuestion].question}
                         </h2>
                     </div>
                 </button>    
