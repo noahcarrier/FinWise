@@ -31,7 +31,7 @@ type props = {
   isAuthed: boolean,
 }
 
-export default class Navbar extends Component<props> {
+export default class NavbarNoButtons extends Component<props> {
   constructor(props: props) {
     super(props);
   }
@@ -72,8 +72,8 @@ export default class Navbar extends Component<props> {
                 <div className="">
                   <div className="hidden sm:ml-6 sm:block">
                     <div className="flex space-x-4">
-                      {(this.props.isAuthed ? AuthNavigation : UnAuthNavigation).map((item) => (
-                        <Link
+                      {/* {(this.props.isAuthed ? AuthNavigation : UnAuthNavigation).map((item) => (
+                        <a
                           key={item.name}
                           href={item.href}
                           className={classNames(
@@ -83,8 +83,8 @@ export default class Navbar extends Component<props> {
                           aria-current={item.current ? 'page' : undefined}
                         >
                           {item.name}
-                        </Link>
-                      ))}
+                        </a>
+                      ))} */}
                     </div>
                   </div>
                 </div>
@@ -116,3 +116,4 @@ export default class Navbar extends Component<props> {
   }
 
 }
+

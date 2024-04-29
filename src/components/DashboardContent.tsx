@@ -1,8 +1,26 @@
 import SearchBar from "./SearchBar";
-import { Fragment, useState } from 'react';
+import { Fragment, useState, useEffect } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
+import Link from "next/link";
+import { create } from "domain";
 
-export default function DashboardContent() {
+export type userProps = {
+  lessonInfo: lessonInfo[] | undefined;
+};
+
+export type lessonInfo = {
+  id: number;
+  title: string;
+  created_at: Date;
+}
+
+export const DashboardContent = ({ lessonInfo }: userProps) => {
+
+  useEffect(() => {
+    console.log(JSON.stringify(lessonInfo));
+  }, [lessonInfo]);
+  
+  // console.log(userId);
   let [isCreateStudySetModalOpen, setIsCreateStudySetModalOpen] = useState(false);
 
   function openCreateStudySetModal() {
@@ -11,6 +29,21 @@ export default function DashboardContent() {
 
   function closeCreateStudySetModal() {
     setIsCreateStudySetModalOpen(false);
+  }
+
+  function parseLessonCreationDate(created_at: Date) {
+    let now = new Date();
+    let createdTimeInMilli = new Date(created_at);
+    let difference = now.getTime() - createdTimeInMilli.getTime();
+
+    let differenceInDays = Math.round(difference / (1000 * 3600 * 24));
+
+    if(differenceInDays == 0) {
+      return "Today"
+    }
+    else {
+      return differenceInDays.toString() + " days ago";
+    }
   }
 
   return (
@@ -39,8 +72,23 @@ export default function DashboardContent() {
           <p className="ms-7 col-span-2 text-2xl font-bold self-center">Your mastery</p>
         </div>
         <div className="grid grid-cols-5 mt-3 gap-7 mx-[5rem] text-black ">
-          <div className="col-span-3 bg-yellow-300 shadow-[inset_0_2px_4px_0_rgba(0,0,0,0.3)] drop-shadow-lg rounded-3xl min-h-[60vh] ">
-            <p className="mx-5"></p>
+          <div className="overflow-y-scroll col-span-3 bg-yellow-300 shadow-[inset_0_2px_4px_0_rgba(0,0,0,0.3)] drop-shadow-lg rounded-3xl min-h-[60vh] ">
+            {lessonInfo.map((lesson) => (
+              <>
+              <div className="flex relative justify-between rounded-xl bg-gradient-to-b from-yellow-200 to-yellow-400">
+                <div className="flex">
+                  <p className="mx-5 my-8 font-bold text-4xl">{lesson.title}</p> 
+                </div>
+                <Link href={`/study/${lesson.id}`} className="flex items-center float-end bg-gradient-to-b from-cyan-400 to-blue-500 mx-4 my-5 px-3 rounded-lg text-xl text-white py-auto">
+                  Study
+                </Link>
+                <p className="mb-2 mx-5 font-semibold absolute bottom-0">Created {parseLessonCreationDate(lesson.created_at)}</p>
+              </div>
+              </>
+            ))
+
+            }
+            {/* <p className="mx-5"></p> */}
           </div>
           <div className="col-span-2 bg-yellow-300 shadow-[inset_0_2px_4px_0_rgba(0,0,0,0.3)] drop-shadow-lg rounded-3xl ">
             <p className="mx-5"></p>
@@ -76,10 +124,10 @@ export default function DashboardContent() {
                 <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-gradient-to-b from-cyan-300 to-blue-600 p-6 text-left align-middle shadow-xl transition-all">
                   <Dialog.Title as="h3" className="text-4xl font-bold leading-6 text-black text-center">Create StudySet</Dialog.Title>
                   <div className="flex flex-col items-center mt-6">
-                    <a href="/create-flashcards" className="bg-yellow-300 hover:bg-yellow-200 rounded-lg shadow-lg p-6">
-                      <img src="icons/flashcards.png" className="w-full mb-" title="Flashcards Icon" />
+                    <Link href="/create-flashcards" className="bg-yellow-300 hover:bg-yellow-200 rounded-lg shadow-lg p-6">
+                      <img src="icons/flashcards.png" className="w-full mb-" title="Flashcards Icon" alt="Fashcard Icon" />
                       <h2 className="text-black m-4 text-3xl text-center font-bold mb-4">Flashcards</h2>
-                    </a>
+                    </Link>
                   </div>
                   <button onClick={closeCreateStudySetModal} className="bg-yellow-300 hover:bg-yellow-200 text-black rounded-lg px-2 py-1 font-semibold shadow-lg float-end">Close</button>
                 </Dialog.Panel>

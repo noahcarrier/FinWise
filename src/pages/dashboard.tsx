@@ -1,18 +1,27 @@
 import Navbar from "@/components/Navbar";
-import DashboardContent from "@/components/DashboardContent";
-import React from "react";
+import { DashboardContent, lessonInfo } from "@/components/DashboardContent";
+import {useState, useEffect } from "react";
 import "../app/globals.css";
 import { getCacheFromPage } from "@/libs/userManager";
 import { NextPageContext } from "next";
+import { userProps } from "@/components/DashboardContent";
+import { getLessonsById } from "@/libs/createFlashcards";
 
 
-export default function Page() {
+type props = {
+  lesson: lessonInfo[] | undefined;
+}
+
+let updateOutside: any;
+
+export default function Page(props: props) {
+
+
   
   return (
     <main className="bg-gradient-to-b from-cyan-500 to-blue-700 min-h-screen">
       <Navbar isAuthed={true}/>
-      <DashboardContent />
-      {/* // <p>Dashboard Page</p> */}
+      <DashboardContent lessonInfo={props.lesson}/>
     </main>
   );
 }
@@ -20,6 +29,7 @@ export default function Page() {
 export const getServerSideProps = async (context: NextPageContext) => {
   /* USE THIS CODE TO TEST AUTHENTICATION (yes, just copy and paste this to page that needs authentication)*/
   const user = await getCacheFromPage(context);
+
   if (!user) {
       return {
           redirect: {
@@ -29,8 +39,11 @@ export const getServerSideProps = async (context: NextPageContext) => {
       };
   }
 
-  /* Return anything you want from database query from here out */
+  
+
   return {
-      props: {}
+      props: {
+        lesson: await getLessonsById(user.id)
+      }
   }
 }
