@@ -1,14 +1,19 @@
 import SearchBar from "./SearchBar";
-import { Fragment, useState } from 'react';
+import { Fragment, useState, useEffect } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
 import Link from "next/link";
 
 export type userProps = {
-  userId: number 
+  userId: number
 };
 
-export const DashboardContent = ({userId}: userProps) => {
-  console.log(userId);
+export const DashboardContent = ({ userId }: userProps) => {
+
+  useEffect(() => {
+    fetchStudySets();
+  }, [])
+
+  // console.log(userId);
   let [isCreateStudySetModalOpen, setIsCreateStudySetModalOpen] = useState(false);
 
   function openCreateStudySetModal() {
@@ -22,7 +27,19 @@ export const DashboardContent = ({userId}: userProps) => {
   const fetchStudySets = async () => {
 
     try {
-      // fetch('')
+      console.log("FETCHING");
+      const response = await fetch(`/card/fetchLessons/`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      });
+      console.log("TEST");
+      console.log(response);
+
+      const data = await response.json();
+      console.log(data);
+
     } catch (error) {
 
     }
