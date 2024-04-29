@@ -8,6 +8,7 @@ import { getCacheFromPage } from '@/libs/userManager';
 import LoadingScreen from '../components/LoadingScreen';
 import NavbarNoButtons from '@/components/NavbarNoButtons';
 import Link from 'next/link';
+import { Root, createRoot } from 'react-dom/client';
 
 
 const Signup = () => {
@@ -20,6 +21,7 @@ const Signup = () => {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    let root: Root | undefined;
     if (password !== confirmPassword) {
       return Swal.fire('Form Validation', 'Passwords do not match', 'error');
     }
@@ -37,15 +39,22 @@ const Signup = () => {
         popup: 'swal-height'
       },
       willOpen: () => {
-        ReactDOM.render(<LoadingScreen />, document.getElementById('loading-screen-container'));
+        const element = document.getElementById('loading-screen-container');
+        if(!element || root) return;
+        root = createRoot(element);
+        root.render(<LoadingScreen />);
       },
       willClose: () => {
-        ReactDOM.unmountComponentAtNode(document.getElementById('loading-screen-container')!);
+        if(!root) return;
+        root.unmount();
+        root = undefined;
+          
       },
       
       didOpen: () => {
         const modal = document.querySelector('.swal2-modal');
         if (modal) {
+          //@ts-ignore -> This method is valid
           modal.style.height = '100%'; 
         }
       }
