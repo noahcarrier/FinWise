@@ -62,6 +62,5 @@ export default function HomePageCards() {
         </div>
       </div>
     </div>
-    </div>
   );
 }
