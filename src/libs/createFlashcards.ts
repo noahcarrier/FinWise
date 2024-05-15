@@ -96,7 +96,9 @@ export async function getLessonsById(userId: number): Promise<lessonInfo[] | und
         created_at: lesson.created_at,
       }
     });
-    await redis.set(`${redisPrefix}LESSONS:${userId}`, JSON.stringify(formatData));
+    await redis.set(`${redisPrefix}LESSONS:${userId}`, JSON.stringify(formatData), {
+      EX: 3600
+    });
     return formatData;
   }
 
